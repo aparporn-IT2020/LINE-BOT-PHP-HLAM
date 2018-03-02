@@ -1,4 +1,11 @@
 <?php
+use Google\Cloud\Firestore\FirestoreClient;
+
+$firestore = new FirestoreClient();
+
+$collection = $firestore->collection('Shop');
+$query = $collection->where('Price', '>', 5);
+
 function CreatePost ($replyToken,$messages,$data,$access_token){
   // Make a POST Request to Messaging API to reply to sender			
    $url = 'https://api.line.me/v2/bot/message/reply';			
@@ -39,7 +46,7 @@ if (!is_null($events['events'])) {
    $replyToken = $event['replyToken'];			
    // Build message to reply back			
    $messages = ['type' => 'text','text' => $text];			
-  CreatePost($replyToken,$messages,$data,$access_token);
+  CreatePost($replyToken,$messages.$query ,$data,$access_token);
   
   }	}}echo "OK";
 
