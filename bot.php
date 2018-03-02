@@ -42,7 +42,8 @@ if (!is_null($events['events'])) {
     $fileArr = GetData();
       echo $fileArr;
    // Get text sent			
-   $text = $event['message']['text'];			
+  // $text = $event['message']['text'];			
+     $text = $fileArr(0);			
    // Get replyToken			
    $replyToken = $event['replyToken'];			
    // Build message to reply back			
