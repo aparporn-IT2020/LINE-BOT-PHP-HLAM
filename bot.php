@@ -1,10 +1,4 @@
 <?php
-use Google\Cloud\Firestore\FirestoreClient;
-
-$firestore = new FirestoreClient();
-
-$collection = $firestore->collection('Shop');
-$query = $collection->where('Price', '>', 5);
 
 function CreatePost ($replyToken,$messages,$data,$access_token){
   // Make a POST Request to Messaging API to reply to sender			
@@ -48,6 +42,6 @@ if (!is_null($events['events'])) {
    $messages = ['type' => 'text','text' => $text];			
   CreatePost($replyToken,$messages ,$data,$access_token);
   
-  }	}}echo $query;
+  }	}}echo "OK";
 
 ?>
