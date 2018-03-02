@@ -1,6 +1,6 @@
 <?php
-echo "Hi , I'm Myshopping bot";
-$access_token = 'bb3hHJ6Zn8B3P5Vhtxlqr3wg4gqsY4zaNbkQ+etvkWMadeGcKUM6c2YZMZGX/yIrq/j6mYA4bOkLoi7TyJ85G6nmR7jbkn0i7O35a38eDFaUkGL5+uXR703LP9r/NI95RlVj5I0VY8bBqgkSHzQpNAdB04t89/1O/w1cDnyilFU=';
+echo "Hi , I'm shopping bot";
+$access_token = '8fsfZxbwQLZGFtqc1rU/JGRsr4FHbXPpN8xv2v2cR4ry5mGgYzwsAUBvmx51ozB3e1NlNQuW7fFI8babhjaGeceCxNkQTKAdkpzXOy7/3phOil6V54Ft5yhpd/dGhpu1x4NcjbeXgPboFTQcGCJXdgdB04t89/1O/w1cDnyilFU=';
 $content = file_get_contents('php://input');
 $arrJson = json_decode($content, true);
  
