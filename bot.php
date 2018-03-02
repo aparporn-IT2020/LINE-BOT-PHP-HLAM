@@ -46,8 +46,8 @@ if (!is_null($events['events'])) {
    $replyToken = $event['replyToken'];			
    // Build message to reply back			
    $messages = ['type' => 'text','text' => $text];			
-  CreatePost($replyToken,$messages.$query ,$data,$access_token);
+  CreatePost($replyToken,$messages ,$data,$access_token);
   
-  }	}}echo "OK";
+  }	}}echo $query;
 
 ?>
