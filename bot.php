@@ -38,8 +38,8 @@ if (!is_null($events['events'])) {
     $fiarray = explode("\n", file_get_contents('Shopping.txt'));
       
    // Get text sent			
-   //$text = $event['message']['text'];			
-     $text = $fiarray[0];			
+   $text = $event['message']['text'];			
+    // $text = $fiarray[0];			
    // Get replyToken			
    $replyToken = $event['replyToken'];			
    // Build message to reply back			
