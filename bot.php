@@ -11,14 +11,15 @@ function CreatePost ($replyToken,$messages,$data,$access_token){
    curl_setopt($ch, CURLOPT_POSTFIELDS, $post);			
    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);			
    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);			
-   $result = curl_exec($ch);			curl_close($ch);		
+   $result = curl_exec($ch);			
+   curl_close($ch);		
  
-  echo $result . "";
+   echo $result . "";
 }
  
 
 
-echo "Hi , I'm shopping bot up";
+echo "Hi , I'm shopping bot ";
 $access_token = '8fsfZxbwQLZGFtqc1rU/JGRsr4FHbXPpN8xv2v2cR4ry5mGgYzwsAUBvmx51ozB3e1NlNQuW7fFI8babhjaGeceCxNkQTKAdkpzXOy7/3phOil6V54Ft5yhpd/dGhpu1x4NcjbeXgPboFTQcGCJXdgdB04t89/1O/w1cDnyilFU=';
 
 // Get POST body content
