@@ -17,6 +17,11 @@ function CreatePost ($replyToken,$messages,$data,$access_token){
  
    echo $result . "";
 }
+
+function GetData (){  
+ $fiarray = explode("\n", file_get_contents('Shopping.txt'));
+  return $fiarray;
+}
  
 
 
@@ -34,6 +39,8 @@ if (!is_null($events['events'])) {
  foreach ($events['events'] as $event) {		
   // Reply only when message sent is in 'text' format		
   if ($event['type'] == 'message' && $event['message']['type'] == 'text') {			
+    $fileArr = GetData();
+      echo $fileArr;
    // Get text sent			
    $text = $event['message']['text'];			
    // Get replyToken			
