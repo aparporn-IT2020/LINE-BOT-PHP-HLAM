@@ -22,7 +22,7 @@ function CreatePost ($replyToken,$messages,$data,$access_token){
 
   
 echo "Hi , I'm shopping bot ";
-$access_token = '8fsfZxbwQLZGFtqc1rU/JGRsr4FHbXPpN8xv2v2cR4ry5mGgYzwsAUBvmx51ozB3e1NlNQuW7fFI8babhjaGeceCxNkQTKAdkpzXOy7/3phOil6V54Ft5yhpd/dGhpu1x4NcjbeXgPboFTQcGCJXdgdB04t89/1O/w1cDnyilFU=';
+$access_token = '6zDMyMWoEbyMb0inVnCxNeglFVxuDjbX7S3V1fq0cvnGwHHHliSwJ3a/bSIERUAdc+lWr4chqBXbwGJT9HnZGTDAUQUGAg0O58NaiDN/83GzJ4R7Fa/FimarNBwZ+eW3zRDrv9B4/j/8hKmNJep9cgdB04t89/1O/w1cDnyilFU=';
 
 // Get POST body content
 $content = file_get_contents('php://input');
