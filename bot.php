@@ -20,30 +20,35 @@ function CreatePost ($replyToken,$messages,$data,$access_token){
 
 
 
-  
-echo "Hi , I'm shopping bot ";
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+echo "Hi , I'm HLAM bot ";
 $access_token = '6zDMyMWoEbyMb0inVnCxNeglFVxuDjbX7S3V1fq0cvnGwHHHliSwJ3a/bSIERUAdc+lWr4chqBXbwGJT9HnZGTDAUQUGAg0O58NaiDN/83GzJ4R7Fa/FimarNBwZ+eW3zRDrv9B4/j/8hKmNJep9cgdB04t89/1O/w1cDnyilFU=';
 
-// Get POST body content
 $content = file_get_contents('php://input');
-// Parse JSON
 $events = json_decode($content, true);
 
-// Validate parsed JSON data
-if (!is_null($events['events'])) {	
- // Loop through each event	
- foreach ($events['events'] as $event) {		
-  // Reply only when message sent is in 'text' format		
-  if ($event['type'] == 'message' && $event['message']['type'] == 'text') {			         
-   // Get text sent			
-   $text = $event['message']['text'];			
-    // $text = $fiarray[0];			
-   // Get replyToken			
-   $replyToken = $event['replyToken'];			
-   // Build message to reply back			
-   $messages = ['type' => 'text','text' => $text];			
-  CreatePost($replyToken,$messages ,$data,$access_token);
-  
-  }	}}echo "OK";
+if (!is_null($events['events'])) 
+{	
+  foreach ($events['events'] as $event) 
+  {		
+    if ($event['type'] == 'message' && $event['message']['type'] == 'text') 
+    {			         
+      $text = $event['message']['text'];			
+    	$replyToken = $event['replyToken'];			
+  		//$messages = ['type' => 'text','text' => $text];
+      $messages = $events;
+      
+      CreatePost($replyToken,$messages ,$data,$access_token);
+    }	
+  }
+}
+
+
 
 ?>
