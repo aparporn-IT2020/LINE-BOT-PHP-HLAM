@@ -73,8 +73,8 @@ if (!is_null($events['events']))
 			}
 			elseif ($text =='training')
 			{
-				//PostImage($replyToken,$ImageLink);
-				PostButton($replyToken,'Test');
+				PostImage($replyToken,$ImageLink);
+				//PostButton($replyToken,'Test');
 			}
 			elseif ($text =='contact')
 			{
