@@ -1,6 +1,6 @@
 <?php
 
-function CreatePost ($replyToken,$messages,$data,$access_token){
+function CreatePostText ($replyToken,$messages){
   // Make a POST Request to Messaging API to reply to sender			
    $url = 'https://api.line.me/v2/bot/message/reply';			
    $data = [				'replyToken' => $replyToken,				'messages' => [$messages],			];			
@@ -18,13 +18,6 @@ function CreatePost ($replyToken,$messages,$data,$access_token){
    echo $result . "";
 }
 
-
-
-
-
-
-
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 echo "Hi , I'm HLAM bot ";
@@ -39,12 +32,11 @@ if (!is_null($events['events']))
   {		
     if ($event['type'] == 'message' && $event['message']['type'] == 'text') 
     {			         
-      $text = $event['message']['text'];			
-    	$replyToken = $event['replyToken'];			
-  		//$messages = ['type' => 'text','text' => $text];
-      $messages = $events;
+      $text = $event['message']['text'];
+      $replyToken = $event['replyToken'];
+      $messages = ['type' => 'text','text' => $text];
       
-      CreatePost($replyToken,$messages ,$data,$access_token);
+      CreatePostText($replyToken,$messages);
     }	
   }
 }
