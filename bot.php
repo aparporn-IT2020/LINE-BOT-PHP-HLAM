@@ -1,27 +1,54 @@
 <?php
 
-function CreatePostText ($access_token,$replyToken,$messages,$data){
-  // Make a POST Request to Messaging API to reply to sender			
-   $url = 'https://api.line.me/v2/bot/message/reply';			
-   $data = [				'replyToken' => $replyToken,				'messages' => [$messages],			];			
-   $post = json_encode($data);			
-   $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);			
-   $ch = curl_init($url);			
-   curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");			
-   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);			
-   curl_setopt($ch, CURLOPT_POSTFIELDS, $post);			
-   curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);			
-   curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);			
-   $result = curl_exec($ch);			
-   curl_close($ch);		
- 
-   echo $result . "";
+function CreatePost ($data){
+   	$url = 'https://api.line.me/v2/bot/message/reply';
+   	$access_token = '6zDMyMWoEbyMb0inVnCxNeglFVxuDjbX7S3V1fq0cvnGwHHHliSwJ3a/bSIERUAdc+lWr4chqBXbwGJT9HnZGTDAUQUGAg0O58NaiDN/83GzJ4R7Fa/FimarNBwZ+eW3zRDrv9B4/j/8hKmNJep9cgdB04t89/1O/w1cDnyilFU=';
+   	$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);	
+   	$post = json_encode($data);			
+   		
+   	$ch = curl_init($url);			
+   	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");			
+   	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);			
+   	curl_setopt($ch, CURLOPT_POSTFIELDS, $post);			
+   	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers); 
+   	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+  
+   	$result = curl_exec($ch);			
+   	curl_close($ch);		
+}
+
+function PostText ($replyToken,$text){   
+		$messages = ['type' => 'text','text' => $text];
+   	$data = ['replyToken' => $replyToken,				
+            'messages' => [$messages],
+						];			
+   	CreatePost($data);
+}
+function PostSticker ($replyToken,$packid,$stickerid){  
+		 $messages = ['type' => 'sticker','packageId' => $packid, 'stickerId' => $stickerid];
+		 $data = ['replyToken' => $replyToken,				
+							'messages' => [$messages],			
+						 ];			
+		 CreatePost($data);
+}
+function PostImage ($replyToken,$url){  
+		 $messages = ['type' => 'image','originalContentUrl' => $url, 'previewImageUrl' => $url];
+		 $data = ['replyToken' => $replyToken,				
+							'messages' => [$messages],			
+						 ];			
+		 CreatePost($data);
+}
+function PostVdeo ($replyToken,$urlVdo,$urlImage){  
+		 $messages = ['type' => 'image','originalContentUrl' => $url, 'previewImageUrl' => $urlImage];
+		 $data = ['replyToken' => $replyToken,				
+							'messages' => [$messages],			
+						 ];			
+		 CreatePost($data);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 echo "Hi , I'm HLAM bot ";
-$access_token = '6zDMyMWoEbyMb0inVnCxNeglFVxuDjbX7S3V1fq0cvnGwHHHliSwJ3a/bSIERUAdc+lWr4chqBXbwGJT9HnZGTDAUQUGAg0O58NaiDN/83GzJ4R7Fa/FimarNBwZ+eW3zRDrv9B4/j/8hKmNJep9cgdB04t89/1O/w1cDnyilFU=';
 
 $content = file_get_contents('php://input');
 $events = json_decode($content, true);
@@ -31,12 +58,27 @@ if (!is_null($events['events']))
   foreach ($events['events'] as $event) 
   {		
     if ($event['type'] == 'message' && $event['message']['type'] == 'text') 
-    {			         
-      $text = $event['message']['text'];
-      $replyToken = $event['replyToken'];
-      $messages = ['type' => 'text','text' => $text];
+    {	
+			$text = $event['message']['text'];
+			$replyToken = $event['replyToken'];
+			
+			if ($text =='register')
+			{
+				PostSticker($replyToken,2,161);
+			}
+			elseif ($text =='training')
+			{
+				PostImage($replyToken,'https://drive.google.com/file/d/12hz8leZwqsTnhi748OARIO2JuX0Xlc4m/view?usp=sharing');
+			}
+			elseif ($text =='contact')
+			{
+				PostVdeo($replyToken,'https://drive.google.com/file/d/1JlsulKE1Ci884wkUAMcBu0Aq-O1JzmpO/view?usp=sharing','https://drive.google.com/file/d/12hz8leZwqsTnhi748OARIO2JuX0Xlc4m/view?usp=sharing');
+			}
+			else
+			{      	          
+      	PostText($replyToken,$text);
+			}
       
-      CreatePostText($access_token,$replyToken,$messages,$data);
     }	
   }
 }
