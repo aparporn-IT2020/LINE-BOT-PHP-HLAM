@@ -51,7 +51,7 @@ echo "Hi , I'm HLAM bot ";
 $content = file_get_contents('php://input');
 $events = json_decode($content, true);
 $ImageLink = 'https://www.img.in.th/images/496d1a61a8e62f514852bd31ea1b1725.jpg';
-$VDOLink = 'https://youtu.be/YUDg-lhmcOM';
+$VDOLink = 'https://mokmoon.com/videos/Brown.mp4';
 
 if (!is_null($events['events'])) 
 {	
