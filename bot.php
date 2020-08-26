@@ -43,8 +43,8 @@ function PostImage ($replyToken,$url){
 					 ];			
 		CreatePost($data);
 }
-function PostVdeo ($replyToken,$urlVdo,$urlImage){  
-		 $messages = ['type' => 'image','originalContentUrl' => $url, 'previewImageUrl' => $urlImage];
+function PostVdeo ($replyToken,$urlImage,$urlVdo){  
+		 $messages = ['type' => 'video','originalContentUrl' => $urlVdo, 'previewImageUrl' => $urlImage];
 		 $data = [	'replyToken' => $replyToken,				
 								'messages' => [$messages],			
 						 ];			
@@ -79,7 +79,7 @@ if (!is_null($events['events']))
 			}
 			elseif ($text =='contact')
 			{
-				PostVdeo($replyToken,$VDOLink,$ImageLink);
+				PostVdeo($replyToken,$ImageLink,$VDOLink);
 			}
 			else
 			{      	          
