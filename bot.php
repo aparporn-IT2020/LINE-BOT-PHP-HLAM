@@ -43,7 +43,7 @@ function PostImage ($replyToken,$url){
 					 ];			
 		CreatePost($data);
 }
-function PostVdeo ($replyToken,$urlImage,$urlVdo){  
+function PostVdo ($replyToken,$urlImage,$urlVdo){  
 		 $messages = ['type' => 'video','originalContentUrl' => $urlVdo, 'previewImageUrl' => $urlImage];
 		 $data = [	'replyToken' => $replyToken,				
 								'messages' => [$messages],			
@@ -58,7 +58,7 @@ echo "Hi , I'm HLAM bot ";
 $content = file_get_contents('php://input');
 $events = json_decode($content, true);
 $ImageLink = 'https://www.img.in.th/images/496d1a61a8e62f514852bd31ea1b1725.jpg';
-$VDOLink = 'https://www.youtube.com/watch?v=Hav3U8x9Ado';
+$VDOLink = 'https://youtu.be/YUDg-lhmcOM';
 
 if (!is_null($events['events'])) 
 {	
@@ -79,7 +79,7 @@ if (!is_null($events['events']))
 			}
 			elseif ($text =='contact')
 			{
-				PostVdeo($replyToken,$ImageLink,$VDOLink);
+				PostVdo($replyToken,$ImageLink,$VDOLink);
 			}
 			else
 			{      	          
