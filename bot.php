@@ -57,6 +57,8 @@ echo "Hi , I'm HLAM bot ";
 
 $content = file_get_contents('php://input');
 $events = json_decode($content, true);
+$ImageLink = 'https://www.img.in.th/image/hFctuE';
+$VDOLink = 'https://www.youtube.com/watch?v=Hav3U8x9Ado';
 
 if (!is_null($events['events'])) 
 {	
@@ -73,11 +75,11 @@ if (!is_null($events['events']))
 			}
 			elseif ($text =='training')
 			{
-				PostImage($replyToken,'https://drive.google.com/file/d/12hz8leZwqsTnhi748OARIO2JuX0Xlc4m/view?usp=sharing');
+				PostImage($replyToken,$ImageLink);
 			}
 			elseif ($text =='contact')
 			{
-				PostVdeo($replyToken,'https://drive.google.com/file/d/1JlsulKE1Ci884wkUAMcBu0Aq-O1JzmpO/view?usp=sharing','https://drive.google.com/file/d/12hz8leZwqsTnhi748OARIO2JuX0Xlc4m/view?usp=sharing');
+				PostVdeo($replyToken,$VDOLink,$ImageLink);
 			}
 			else
 			{      	          
