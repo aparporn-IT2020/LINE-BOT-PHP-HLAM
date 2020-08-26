@@ -7,16 +7,17 @@ function CreatePost ($data){
    	$post = json_encode($data);			
    		
    	$ch = curl_init();	
-		curl_setopt($ch, CURLOPT_URL,$url);
-   	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");			
+	
+	curl_setopt($ch, CURLOPT_URL,$url);
+   	//curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");			
    	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);			
    	curl_setopt($ch, CURLOPT_POSTFIELDS, $post);			
    	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers); 
-   	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+   	//curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 	
-    curl_setopt($ch, CURLOPT_HEADER, false);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    	curl_setopt($ch, CURLOPT_HEADER, false);
+    	curl_setopt($ch, CURLOPT_POST, true);
+    	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
   
    	$result = curl_exec($ch);			
    	curl_close($ch);		
@@ -24,31 +25,23 @@ function CreatePost ($data){
 
 function PostText ($replyToken,$text){   
 		$messages = ['type' => 'text','text' => $text];
-   	$data = [	'replyToken' => $replyToken,				
-            	'messages' => [$messages],
-						];			
+   	$data = ['replyToken' => $replyToken,'messages' => [$messages],];			
    	CreatePost($data);
 }
 function PostSticker ($replyToken,$packid,$stickerid){  
-		$messages = ['type' => 'sticker','packageId' => $packid, 'stickerId' => $stickerid];
-		$data = [	'replyToken' => $replyToken,				
-							'messages' => [$messages],			
-		 				];			
+	$messages = ['type' => 'sticker','packageId' => $packid, 'stickerId' => $stickerid];
+	$data = ['replyToken' => $replyToken,'messages' => [$messages],];			
 	 CreatePost($data);
 }
 function PostImage ($replyToken,$url){  
 	 $messages = ['type' => 'image','originalContentUrl' => $url, 'previewImageUrl' => $url];
-	 $data = [	'replyToken' => $replyToken,				
-							'messages' => [$messages],			
-					 ];			
-		CreatePost($data);
+	 $data = ['replyToken' => $replyToken,'messages' => [$messages],];			
+	CreatePost($data);
 }
 function PostVdo ($replyToken,$urlImage,$urlVdo){  
-		 $messages = ['type' => 'video','originalContentUrl' => $urlVdo, 'previewImageUrl' => $urlImage];
-		 $data = [	'replyToken' => $replyToken,				
-								'messages' => [$messages],			
-						 ];			
-		 CreatePost($data);
+	$messages = ['type' => 'video','originalContentUrl' => $urlVdo, 'previewImageUrl' => $urlImage];
+	$data = ['replyToken' => $replyToken,'messages' => [$messages],];									 		
+	CreatePost($data);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -83,7 +76,7 @@ if (!is_null($events['events']))
 			}
 			else
 			{      	          
-      	PostText($replyToken,$text);
+      				PostText($replyToken,$text);
 			}
       
     }	
