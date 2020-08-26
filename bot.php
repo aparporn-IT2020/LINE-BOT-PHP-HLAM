@@ -6,12 +6,17 @@ function CreatePost ($data){
    	$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);	
    	$post = json_encode($data);			
    		
-   	$ch = curl_init($url);			
+   	$ch = curl_init();	
+		curl_setopt($ch, CURLOPT_URL,$url);
    	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");			
    	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);			
    	curl_setopt($ch, CURLOPT_POSTFIELDS, $post);			
    	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers); 
    	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+	
+    curl_setopt($ch, CURLOPT_HEADER, false);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
   
    	$result = curl_exec($ch);			
    	curl_close($ch);		
@@ -19,29 +24,29 @@ function CreatePost ($data){
 
 function PostText ($replyToken,$text){   
 		$messages = ['type' => 'text','text' => $text];
-   	$data = ['replyToken' => $replyToken,				
-            'messages' => [$messages],
+   	$data = [	'replyToken' => $replyToken,				
+            	'messages' => [$messages],
 						];			
    	CreatePost($data);
 }
 function PostSticker ($replyToken,$packid,$stickerid){  
-		 $messages = ['type' => 'sticker','packageId' => $packid, 'stickerId' => $stickerid];
-		 $data = ['replyToken' => $replyToken,				
+		$messages = ['type' => 'sticker','packageId' => $packid, 'stickerId' => $stickerid];
+		$data = [	'replyToken' => $replyToken,				
 							'messages' => [$messages],			
-						 ];			
-		 CreatePost($data);
+		 				];			
+	 CreatePost($data);
 }
 function PostImage ($replyToken,$url){  
-		 $messages = ['type' => 'image','originalContentUrl' => $url, 'previewImageUrl' => $url];
-		 $data = ['replyToken' => $replyToken,				
+	 $messages = ['type' => 'image','originalContentUrl' => $url, 'previewImageUrl' => $url];
+	 $data = [	'replyToken' => $replyToken,				
 							'messages' => [$messages],			
-						 ];			
-		 CreatePost($data);
+					 ];			
+		CreatePost($data);
 }
 function PostVdeo ($replyToken,$urlVdo,$urlImage){  
 		 $messages = ['type' => 'image','originalContentUrl' => $url, 'previewImageUrl' => $urlImage];
-		 $data = ['replyToken' => $replyToken,				
-							'messages' => [$messages],			
+		 $data = [	'replyToken' => $replyToken,				
+								'messages' => [$messages],			
 						 ];			
 		 CreatePost($data);
 }
