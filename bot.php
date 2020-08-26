@@ -1,6 +1,6 @@
 <?php
 
-function CreatePostText ($replyToken,$messages){
+function CreatePostText ($access_token,$replyToken,$messages,$data){
   // Make a POST Request to Messaging API to reply to sender			
    $url = 'https://api.line.me/v2/bot/message/reply';			
    $data = [				'replyToken' => $replyToken,				'messages' => [$messages],			];			
@@ -36,7 +36,7 @@ if (!is_null($events['events']))
       $replyToken = $event['replyToken'];
       $messages = ['type' => 'text','text' => $text];
       
-      CreatePostText($replyToken,$messages);
+      CreatePostText($access_token,$replyToken,$messages,$data);
     }	
   }
 }
