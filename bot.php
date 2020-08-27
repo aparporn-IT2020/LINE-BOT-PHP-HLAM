@@ -54,6 +54,17 @@ function PostButton ($replyToken,$urlImage,$title,$text){
 	PostText($replyToken,json_encode($data));
 	CreatePost($data);
 }
+function PostConfirm ($replyToken,$text){  
+	$template = [	'type' => 'confirm','text' => $text];
+	$actions = 	[	['type' => 'message','label' => 'ตกลง','text' => 'yes'],
+		    				['type' => 'message','label' => 'ไม่','text' => 'no']
+							];
+	
+	$messages = ['type' => 'template','altText' => $text,'template' => $template,'actions' => $actions];	
+	$data = ['replyToken' => $replyToken,'messages' => [$messages],];	
+	PostText($replyToken,json_encode($data));
+	CreatePost($data);
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -75,7 +86,8 @@ if (!is_null($events['events']))
 			
 			if ($text =='register')
 			{
-				PostSticker($replyToken,2,161);
+				//PostSticker($replyToken,2,161);
+				PostConfirm($replyToken,'This is Confirm message');
 			}
 			elseif ($text =='training')
 			{
