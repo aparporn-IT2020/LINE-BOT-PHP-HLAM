@@ -43,8 +43,14 @@ function PostVdo ($replyToken,$urlImage,$urlVdo){
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];									 		
 	CreatePost($data);
 }
-function PostButton ($replyToken,$title){  
-	$messages = ['type' => 'buttons','title' => $title];
+function PostButton ($replyToken,$urlImage,$title,$text){  
+	
+	$template = ['type' => 'button','thumbnailImageUrl' => $urlImage,'title' => $title,'text' => $text];
+	$actions = [{'type' => 'message','label' => 'ตกลง','text' => 'Yes'},
+		    {'type' => 'message','label' => 'ไม่','text' => 'No'}
+		   ];
+	
+	$messages = ['type' => 'template','altText' => $text,'template' => $template,'actions' => $actions];	
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];									 		
 	CreatePost($data);
 }
@@ -73,8 +79,8 @@ if (!is_null($events['events']))
 			}
 			elseif ($text =='training')
 			{
-				PostImage($replyToken,$ImageLink);
-				//PostButton($replyToken,'Test');
+				//PostImage($replyToken,$ImageLink);
+				PostButton($replyToken,$ImageLink,'Test button','This is Button message');
 			}
 			elseif ($text =='contact')
 			{
