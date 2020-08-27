@@ -50,7 +50,7 @@ function PostButton ($replyToken,$urlImage,$title,$text){
 		    				['type' => 'message','label' => 'ไม่','text' => 'no']
 							];
 	
-	$messages = ['type' => 'template','altText' => $text,'template' => [$template],'actions' => [$actions]];	
+	$messages = ['type' => 'template','altText' => $text,'template' => $template,'actions' => $actions];	
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];	
 	PostText($replyToken,json_encode($data));
 	CreatePost($data);
