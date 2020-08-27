@@ -45,8 +45,8 @@ function PostVdo ($replyToken,$urlImage,$urlVdo){
 }
 function PostButton ($replyToken,$urlImage,$title,$text){  
 	$template = [	'type' => 'buttons','thumbnailImageUrl' => $urlImage,'title' => $title,'text' => $text];
-	$actions = 	[	['type' => 'message','label' => 'ตกลง','text' => 'yes'],
-		    				['type' => 'message','label' => 'ไม่','text' => 'no']
+	$actions = 	[	['type' => 'message','label' => 'yes','text' => 'yes'],
+		    				['type' => 'message','label' => 'no','text' => 'no']
 							];
 	
 	$messages = ['type' => 'template','altText' => $text,'template' => $template,'actions' => $actions];	
@@ -56,8 +56,8 @@ function PostButton ($replyToken,$urlImage,$title,$text){
 }
 function PostConfirm ($replyToken,$text){  
 	$template = [	'type' => 'confirm','text' => $text];
-	$actions = 	[	['type' => 'message','label' => 'ตกลง','text' => 'yes'],
-		    				['type' => 'message','label' => 'ไม่','text' => 'no']
+	$actions = 	[	['type' => 'message','label' => 'yes','text' => 'yes'],
+		    				['type' => 'message','label' => 'no','text' => 'no']
 							];
 	
 	$messages = ['type' => 'template','altText' => $text,'template' => $template,'actions' => $actions];	
