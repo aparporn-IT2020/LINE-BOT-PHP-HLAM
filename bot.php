@@ -54,23 +54,29 @@ function PostButton ($replyToken,$urlImage,$title,$text){
 	PostText($replyToken,json_encode($data));
 	CreatePost($data);
 }
-function PostConfirm ($replyToken,$text){  	
-	/*
-	$actions = 	[	['type' => 'message','label' => 'yes','text' => 'yes'],
-		    				['type' => 'message','label' => 'no','text' => 'no']
-							];
-	$template = ['type' => 'confirm','text' => $text,'actions' => $actions];
-	
-	$messages = ['type' => 'template','altText' => $text,'template' => $template];
+function PostConfirm ($replyToken,$text){  			
+	$messages = [	"type" => "template",
+  							"altText" => "this is a confirm template",
+								"template" => {
+															"type" => "confirm",
+															"text" => $text,
+															"actions" => [
+																{
+																	"type" => "message",
+																	"label" => "Yes",
+																	"text" => "yes"
+																},
+																{
+																	"type" => "message",
+																	"label" => "No",
+																	"text" => "no"
+																}
+																					]
+															}
+		    			];
 	
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];	
-	*/
-	$actions = array (
-  New \LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder("yes", "ans=y"),
-  New \LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder("no", "ans=N")
-);
-$button = new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder("confim message", $actions);
-$outputText = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder("confim message", $button);
+	
 	
 	PostText($replyToken,json_encode($outputText));
 	CreatePost($data);
