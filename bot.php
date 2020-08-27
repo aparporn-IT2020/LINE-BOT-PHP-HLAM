@@ -55,14 +55,24 @@ function PostButton ($replyToken,$urlImage,$title,$text){
 	CreatePost($data);
 }
 function PostConfirm ($replyToken,$text){  	
+	/*
 	$actions = 	[	['type' => 'message','label' => 'yes','text' => 'yes'],
 		    				['type' => 'message','label' => 'no','text' => 'no']
 							];
-	$template = [	'type' => 'confirm','text' => $text,'actions' => $actions];
+	$template = ['type' => 'confirm','text' => $text,'actions' => $actions];
 	
-	$messages = ['type' => 'template','altText' => $text,'template' => $template];	
+	$messages = ['type' => 'template','altText' => $text,'template' => $template];
+	
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];	
-	PostText($replyToken,json_encode($data));
+	*/
+	$actions = array (
+  New \LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder("yes", "ans=y"),
+  New \LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder("no", "ans=N")
+);
+$button = new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder("confim message", $actions);
+$outputText = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder("confim message", $button);
+	
+	PostText($replyToken,json_encode($outputText));
 	CreatePost($data);
 }
 
