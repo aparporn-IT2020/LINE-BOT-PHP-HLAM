@@ -55,30 +55,14 @@ function PostButton ($replyToken,$urlImage,$title,$text){
 	CreatePost($data);
 }
 function PostConfirm ($replyToken,$text){  			
-	$messages = [	"type" => "template",
-  							"altText" => "this is a confirm template",
-								"template" => {
-															"type" => "confirm",
-															"text" => $text,
-															"actions" => [
-																{
-																	"type" => "message",
-																	"label" => "Yes",
-																	"text" => "yes"
-																},
-																{
-																	"type" => "message",
-																	"label" => "No",
-																	"text" => "no"
-																}
-																					]
-															}
-		    			];
+	$actions = 	[	['type' => 'message','label' => 'yes','text' => 'yes'],
+		    				['type' => 'message','label' => 'no','text' => 'no']
+							];
+	$template = [	'type' => 'confirm','text' => $text,'actions' => $actions];
 	
+	$messages = ['type' => 'template','altText' => $text,'template' => $template];	
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];	
-	
-	
-	PostText($replyToken,json_encode($outputText));
+	PostText($replyToken,json_encode($data));
 	CreatePost($data);
 }
 
