@@ -46,11 +46,11 @@ function PostVdo ($replyToken,$urlImage,$urlVdo){
 function PostButton ($replyToken,$urlImage,$title,$text){  
 	
 	$template = ['type' => 'button','thumbnailImageUrl' => $urlImage,'title' => $title,'text' => $text];
-	$actions = [{'type' => 'message','label' => 'ตกลง','text' => 'Yes'},
+	$actions = [array('type' => 'message','label' => 'ตกลง','text' => 'Yes'},
 		    {'type' => 'message','label' => 'ไม่','text' => 'No'}
 		   ];
 	
-	$messages = ['type' => 'template','altText' => $text,'template' => $template,'actions' => $actions];	
+	$messages = ['type' => 'template','altText' => $text,'template' => [$template],'actions' => [$actions]];	
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];									 		
 	CreatePost($data);
 }
