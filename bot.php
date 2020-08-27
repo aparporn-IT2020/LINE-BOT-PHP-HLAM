@@ -44,23 +44,23 @@ function PostVdo ($replyToken,$urlImage,$urlVdo){
 	CreatePost($data);
 }
 function PostButton ($replyToken,$urlImage,$title,$text){  
-	$template = [	'type' => 'buttons','thumbnailImageUrl' => $urlImage,'title' => $title,'text' => $text];
+	$template = [	'type' => 'buttons','thumbnailImageUrl' => $urlImage,'title' => $title,'text' => $text,'actions' => $actions];
 	$actions = 	[	['type' => 'message','label' => 'yes','text' => 'yes'],
 		    				['type' => 'message','label' => 'no','text' => 'no']
 							];
 	
-	$messages = ['type' => 'template','altText' => $text,'template' => $template,'actions' => $actions];	
+	$messages = ['type' => 'template','altText' => $text,'template' => $template];	
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];	
 	PostText($replyToken,json_encode($data));
 	CreatePost($data);
 }
 function PostConfirm ($replyToken,$text){  
-	$template = [	'type' => 'confirm','text' => $text];
+	$template = [	'type' => 'confirm','text' => $text,'actions' => $actions];
 	$actions = 	[	['type' => 'message','label' => 'yes','text' => 'yes'],
 		    				['type' => 'message','label' => 'no','text' => 'no']
 							];
 	
-	$messages = ['type' => 'template','altText' => $text,'template' => $template,'actions' => $actions];	
+	$messages = ['type' => 'template','altText' => $text,'template' => $template];	
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];	
 	PostText($replyToken,json_encode($data));
 	CreatePost($data);
