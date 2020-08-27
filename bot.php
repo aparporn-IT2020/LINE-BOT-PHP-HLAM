@@ -45,7 +45,9 @@ function PostVdo ($replyToken,$urlImage,$urlVdo){
 }
 function PostButton ($replyToken,$urlImage,$title,$text){  
 	
-	$template = ['type' => 'buttons','thumbnailImageUrl' => $urlImage,'title' => $title,'text' => $text];
+	$default = [ 'type' => 'uri','label' => 'View detail','uri' => 'http://example.com/page/123'];
+	$template = ['type' => 'buttons','thumbnailImageUrl' => $urlImage,'title' => $title,'text' => $text,'imageAspectRatio' => 'rectangle',
+      			'imageSize' => 'cover','imageBackgroundColor' => '#FFFFFF','defaultAction' => $default];
 	$actions = 	[	['type' => 'message','label' => 'ตกลง','text' => 'yes'],
 		    				['type' => 'message','label' => 'ไม่','text' => 'no']
 							];
