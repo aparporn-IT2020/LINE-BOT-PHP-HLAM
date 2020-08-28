@@ -85,13 +85,13 @@ if (!is_null($events['events']))
 			
 			if ($text =='register')
 			{
-				//PostSticker($replyToken,2,161);
-				PostConfirm($replyToken,'This is Confirm message');
+				PostSticker($replyToken,2,161);
+				//PostConfirm($replyToken,'This is Confirm message');
 			}
 			elseif ($text =='training')
 			{
-				//PostImage($replyToken,$ImageLink);
-				PostButton($replyToken,$ImageLink,'Test button','This is Button message');
+				PostImage($replyToken,$ImageLink);
+				//PostButton($replyToken,$ImageLink,'Test button','This is Button message');
 			}
 			elseif ($text =='contact')
 			{
