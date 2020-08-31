@@ -9,20 +9,16 @@ function CreatePost ($data){
    	$ch = curl_init();	
 
 	curl_setopt($ch, CURLOPT_URL,$url);
-   	//curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");			
+   	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");			
    	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);			
    	curl_setopt($ch, CURLOPT_POSTFIELDS, $post);			
    	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers); 
-   	//curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-
     	curl_setopt($ch, CURLOPT_HEADER, false);
     	curl_setopt($ch, CURLOPT_POST, true);
     	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
    	$result = curl_exec($ch);	
-   	curl_close($ch);	
-	
-	
+   	curl_close($ch);		
 }
 function PostText ($replyToken,$text){   
 		$messages = ['type' => 'text','text' => $text];
@@ -50,8 +46,7 @@ function PostButtons ($replyToken,$urlImage,$title,$caption){
 	$messages = ['type' => 'template','template' => $template];
 	
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];
-	
-	PostText($replyToken,json_encode($data));
+		
 	CreatePost($data);
 }
 function PostConfirm ($replyToken,$caption){  
@@ -61,7 +56,6 @@ function PostConfirm ($replyToken,$caption){
 	
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];
 	
-	PostText($replyToken,json_encode($data));
 	CreatePost($data);
 }
 
@@ -84,14 +78,12 @@ if (!is_null($events['events']))
 			if ($text =='register')
 			{
 				//PostText($replyToken,$text);
-				$temp = PostButtons($replyToken,$ImageLink,'Test','are you confirm?');
-				PostText($replyToken,$temp);
+				PostButtons($replyToken,$ImageLink,'Test','are you confirm?');			
 			}
 	    		elseif ($text =='training')
 			{
 				//PostText($replyToken,$text);
-				$temp = PostConfirm($replyToken,'are you confirm?');
-				PostText($replyToken,$temp);
+				PostConfirm($replyToken,'are you confirm?');				
 			}	    
 	    		elseif ($text =='contact')
 			{
