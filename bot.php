@@ -82,28 +82,19 @@ if (!is_null($events['events']))
 			$text = $event['message']['text'];
 			$replyToken = $event['replyToken'];
 
-			if ($text =='register')
+			if ($text =='register' || $text =='training' || $text =='contact')
 			{
-				PostSticker($replyToken,2,161);
-				//PostConfirm($replyToken,'This is Confirm message');
+				PostText($replyToken,$text);				
 			}
-			elseif ($text =='training')
+			elseif ($text =='yes' || $text =='no')
 			{
-				PostImage($replyToken,$ImageLink);
-				//PostButton($replyToken,$ImageLink,'Test button','This is Button message');
-			}
-			elseif ($text =='contact')
-			{
-				PostVdo($replyToken,$ImageLink,$VDOLink);
-			}
-			else
-			{      	          
-      				PostText($replyToken,$text);
-			}
-
-    }	
-  }
+				PostText($replyToken,'Thank you for confirm');
+			}		
+    }
+		
+  }		
 }
+
 
 
 
