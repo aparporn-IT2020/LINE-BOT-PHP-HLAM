@@ -55,7 +55,7 @@ function PostButtons ($replyToken,$urlImage,$title,$caption){
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-echo "Hi , I'm HLAM bot ";
+
 
 $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('6zDMyMWoEbyMb0inVnCxNeglFVxuDjbX7S3V1fq0cvnGwHHHliSwJ3a/bSIERUAdc+lWr4chqBXbwGJT9HnZGTDAUQUGAg0O58NaiDN/83GzJ4R7Fa/FimarNBwZ+eW3zRDrv9B4/j/8hKmNJep9cgdB04t89/1O/w1cDnyilFU=');
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => '0126e35ca29d722a11fab40b4948db24']);
@@ -110,6 +110,6 @@ if (!is_null($events['events']))
 }
 
 
-
+echo "Hi , I'm HLAM bot ";
 
 ?>
