@@ -19,10 +19,12 @@ function CreatePost ($data){
     	curl_setopt($ch, CURLOPT_POST, true);
     	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
-   	$result = curl_exec($ch);			
+   	$result = curl_exec($ch);	
+	
+	PostText($replyToken,$result);
    	curl_close($ch);	
 	
-	return $result;
+	
 }
 function PostText ($replyToken,$text){   
 		$messages = ['type' => 'text','text' => $text];
