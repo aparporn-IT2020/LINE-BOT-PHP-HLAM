@@ -77,7 +77,17 @@ if (!is_null($events['events']))
 			if ($text =='register')
 			{
 				//PostText($replyToken,$text);
-				$response = $bot->replyText($replyToken, 'hello!');
+				$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
+				$response = $bot->replyMessage($replyToken, $textMessageBuilder);
+				if ($response->isSucceeded()) {
+						PostText($replyToken,'ok');
+				}
+				else
+				{
+					// Failed
+				echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
+				}
+				
 				PostButtons($replyToken,$ImageLink,'Test','are you confirm?');
 				
 			}
