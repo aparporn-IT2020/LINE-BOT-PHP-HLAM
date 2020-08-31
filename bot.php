@@ -42,25 +42,12 @@ function PostVdo ($replyToken,$urlImage,$urlVdo){
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];									 		
 	CreatePost($data);
 }
-function PostButton ($replyToken,$urlImage,$title,$text){  	
-	$actions = 	[	['type' => 'message','label' => 'yes','text' => 'yes'],
-		    				['type' => 'message','label' => 'no','text' => 'no']
-							];
-	$template = [	'type' => 'buttons','thumbnailImageUrl' => $urlImage,'title' => $title,'text' => $text,'actions' => $actions];
-
-	$messages = ['type' => 'template','altText' => $text,'template' => $template];	
-	$data = ['replyToken' => $replyToken,'messages' => [$messages],];	
-	PostText($replyToken,json_encode($data));
-	CreatePost($data);
-}
-function PostConfirm ($replyToken,$text){  			
-	$actions = 	[	['type' => 'message','label' => 'yes','text' => 'yes'],
-		    				['type' => 'message','label' => 'no','text' => 'no']];
-	$template = [	'type' => 'confirm','text' => $text,'actions' => $actions];
-
-	$messages = ['type' => 'template','altText' => $text,'template' => $template];	
-	$data = ['replyToken' => $replyToken,'messages' => [$messages],];	
-	PostText($replyToken,json_encode($data));
+function PostButtons ($replyToken,$urlImage,$title,$caption){  
+	$actions = [['type' => 'message','label' => 'yes','text': 'yes'],['type' => 'message','label' => 'no','text': 'no']];
+	$template = ['type' => 'buttons','thumbnailImageUrl' => $urlImage,'title' => $title,'text' => $caption,'actions' => $actions];
+	$messages = ['type' => 'template','altText' => 'This is a buttons template','template' => $template];
+	
+	$data = ['replyToken' => $replyToken,'messages' => [$messages],];									 		
 	CreatePost($data);
 }
 
@@ -82,13 +69,22 @@ if (!is_null($events['events']))
 			$text = $event['message']['text'];
 			$replyToken = $event['replyToken'];
 
-			if ($text =='register' || $text =='training' || $text =='contact')
+			if ($text =='register')
+			{
+				PostText($replyToken,$text);
+				PostButtons($replyToken,$ImageLink,'Test','are you confirm?');
+			}
+	    		elseif ($text =='training')
 			{
 				PostText($replyToken,$text);				
-			}
+			}	    
+	    		elseif ($text =='contact')
+			{
+				PostText($replyToken,$text);				
+			}	    		
 			elseif ($text =='yes' || $text =='no')
 			{
-				PostText($replyToken,'Thank you for confirm');
+				PostText($replyToken,'Thank you');
 			}		
     }
 		
