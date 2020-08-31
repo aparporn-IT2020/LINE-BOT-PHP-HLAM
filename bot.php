@@ -49,7 +49,7 @@ function PostButtons ($replyToken,$urlImage,$title,$caption){
 	
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];
 	
-	CreatePost(json_encode($data));
+	PostText($replyToken,json_encode($data));
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
