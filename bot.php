@@ -44,8 +44,8 @@ function PostVdo ($replyToken,$urlImage,$urlVdo){
 }
 function PostButtons ($replyToken,$urlImage,$title,$caption){  
 	$actions = [['type' => 'message','label' => 'yes','text' => 'yes'],['type' => 'message','label' => 'no','text' => 'no']];
-	$messages = ['type' => 'buttons','thumbnailImageUrl' => $urlImage,'title' => $title,'text' => $caption,'actions' => $actions];
-	
+	$template = ['type' => 'buttons','thumbnailImageUrl' => $urlImage,'title' => $title,'text' => $caption,'actions' => $actions];
+	$messages = ['type' => 'template','template' => $template];
 	
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];
 	
