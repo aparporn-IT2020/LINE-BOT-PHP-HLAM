@@ -87,7 +87,7 @@ if (!is_null($events['events']))
 	    		elseif ($text =='training')
 			{
 				//PostText($replyToken,$text);
-				PostButtons($replyToken,'are you confirm?');	
+				PostConfirm($replyToken,'are you confirm?');	
 			}	    
 	    		elseif ($text =='contact')
 			{
