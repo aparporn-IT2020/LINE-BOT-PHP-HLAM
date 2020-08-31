@@ -72,7 +72,7 @@ if (!is_null($events['events']))
 
 			if ($text =='register')
 			{
-				PostText($replyToken,$text);
+				//PostText($replyToken,$text);
 				PostButtons($replyToken,$ImageLink,'Test','are you confirm?');
 			}
 	    		elseif ($text =='training')
