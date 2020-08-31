@@ -47,8 +47,9 @@ function PostButtons ($replyToken,$urlImage,$title,$caption){
 	$template = ['type' => 'buttons','thumbnailImageUrl' => $urlImage,'title' => $title,'text' => $caption,'actions' => [$actions]];
 	$messages = ['type' => 'template','altText' => 'This is a buttons template','template' => $template];
 	
-	$data = ['replyToken' => $replyToken,'messages' => [$messages],];									 		
-	CreatePost($data);
+	$data = ['replyToken' => $replyToken,'messages' => [$messages],];
+	
+	CreatePost(json_encode($data));
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
