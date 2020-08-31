@@ -21,19 +21,8 @@ use LINE\LINEBot\Event\UnfollowEvent;
 use LINE\LINEBot\Event\UnknownEvent;
 use LINE\LINEBot\Exception\InvalidEventRequestException;
 use LINE\LINEBot\Exception\InvalidSignatureException;
-use LINE\LINEBot\KitchenSink\EventHandler\BeaconEventHandler;
-use LINE\LINEBot\KitchenSink\EventHandler\FollowEventHandler;
-use LINE\LINEBot\KitchenSink\EventHandler\JoinEventHandler;
-use LINE\LINEBot\KitchenSink\EventHandler\LeaveEventHandler;
-use LINE\LINEBot\KitchenSink\EventHandler\MessageHandler\AudioMessageHandler;
-use LINE\LINEBot\KitchenSink\EventHandler\MessageHandler\ImageMessageHandler;
-use LINE\LINEBot\KitchenSink\EventHandler\MessageHandler\LocationMessageHandler;
-use LINE\LINEBot\KitchenSink\EventHandler\MessageHandler\StickerMessageHandler;
-use LINE\LINEBot\KitchenSink\EventHandler\MessageHandler\TextMessageHandler;
-use LINE\LINEBot\KitchenSink\EventHandler\MessageHandler\VideoMessageHandler;
-use LINE\LINEBot\KitchenSink\EventHandler\PostbackEventHandler;
-use LINE\LINEBot\KitchenSink\EventHandler\ThingsEventHandler;
-use LINE\LINEBot\KitchenSink\EventHandler\UnfollowEventHandler;
+new \LINE\LINEBot\MessageBuilder\TextMessageBuilder;
+
 
 $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('6zDMyMWoEbyMb0inVnCxNeglFVxuDjbX7S3V1fq0cvnGwHHHliSwJ3a/bSIERUAdc+lWr4chqBXbwGJT9HnZGTDAUQUGAg0O58NaiDN/83GzJ4R7Fa/FimarNBwZ+eW3zRDrv9B4/j/8hKmNJep9cgdB04t89/1O/w1cDnyilFU=');
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => '0126e35ca29d722a11fab40b4948db24']);
@@ -49,7 +38,8 @@ foreach ($events as $event)
 		$replyToken = $event->getReplyToken();
 		if ($text == 'register' || $text == 'training' || $text == 'contact')
 		{
-			$resp = $bot->replyText($replyToken, $replyText);
+			$textMessageBuilder = new TextMessageBuilder($text);
+			$response = $bot->replyMessage($replyToken, $textMessageBuilder);
 		}
 	}
 }
