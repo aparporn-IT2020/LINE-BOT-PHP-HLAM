@@ -1,47 +1,110 @@
 <?php
 
-use LINE\LINEBot;
-use LINE\LINEBot\Constant\HTTPHeader;
-use LINE\LINEBot\Event\AccountLinkEvent;
-use LINE\LINEBot\Event\BeaconDetectionEvent;
-use LINE\LINEBot\Event\FollowEvent;
-use LINE\LINEBot\Event\JoinEvent;
-use LINE\LINEBot\Event\LeaveEvent;
-use LINE\LINEBot\Event\MessageEvent;
-use LINE\LINEBot\Event\MessageEvent\AudioMessage;
-use LINE\LINEBot\Event\MessageEvent\ImageMessage;
-use LINE\LINEBot\Event\MessageEvent\LocationMessage;
-use LINE\LINEBot\Event\MessageEvent\StickerMessage;
-use LINE\LINEBot\Event\MessageEvent\TextMessage;
-use LINE\LINEBot\Event\MessageEvent\UnknownMessage;
-use LINE\LINEBot\Event\MessageEvent\VideoMessage;
-use LINE\LINEBot\Event\PostbackEvent;
-use LINE\LINEBot\Event\ThingsEvent;
-use LINE\LINEBot\Event\UnfollowEvent;
-use LINE\LINEBot\Event\UnknownEvent;
-use LINE\LINEBot\Exception\InvalidEventRequestException;
-use LINE\LINEBot\Exception\InvalidSignatureException;
-new LINE\LINEBot\MessageBuilder\TextMessageBuilder;
+function CreatePost ($data){
+   	$url = 'https://api.line.me/v2/bot/message/reply';
+   	$access_token = '6zDMyMWoEbyMb0inVnCxNeglFVxuDjbX7S3V1fq0cvnGwHHHliSwJ3a/bSIERUAdc+lWr4chqBXbwGJT9HnZGTDAUQUGAg0O58NaiDN/83GzJ4R7Fa/FimarNBwZ+eW3zRDrv9B4/j/8hKmNJep9cgdB04t89/1O/w1cDnyilFU=';
+   	$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);	
+   	$post = json_encode($data);			
 
+   	$ch = curl_init();	
 
-$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('6zDMyMWoEbyMb0inVnCxNeglFVxuDjbX7S3V1fq0cvnGwHHHliSwJ3a/bSIERUAdc+lWr4chqBXbwGJT9HnZGTDAUQUGAg0O58NaiDN/83GzJ4R7Fa/FimarNBwZ+eW3zRDrv9B4/j/8hKmNJep9cgdB04t89/1O/w1cDnyilFU=');
-$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => '0126e35ca29d722a11fab40b4948db24']);
+	curl_setopt($ch, CURLOPT_URL,$url);
+   	//curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");			
+   	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);			
+   	curl_setopt($ch, CURLOPT_POSTFIELDS, $post);			
+   	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers); 
+   	//curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 
-////////////////////////////////////////////////////////////
-echo 'Hello I am HLAM bot';
-foreach ($events as $event) 
-{
-		
-	if ($event instanceof MessageEvent) 
-	{		
-		$text = $event->getText();
-		$replyToken = $event->getReplyToken();
-		if ($text == 'register' || $text == 'training' || $text == 'contact')
-		{
-			$textMessageBuilder = new TextMessageBuilder($text);
-			$response = $bot->replyMessage($replyToken, $textMessageBuilder);
-		}
-	}
+    	curl_setopt($ch, CURLOPT_HEADER, false);
+    	curl_setopt($ch, CURLOPT_POST, true);
+    	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+   	$result = curl_exec($ch);			
+   	curl_close($ch);		
 }
+function PostText ($replyToken,$text){   
+		$messages = ['type' => 'text','text' => $text];
+   	$data = ['replyToken' => $replyToken,'messages' => [$messages],];			
+   	CreatePost($data);
+}
+function PostSticker ($replyToken,$packid,$stickerid){  
+	$messages = ['type' => 'sticker','packageId' => $packid, 'stickerId' => $stickerid];
+	$data = ['replyToken' => $replyToken,'messages' => [$messages],];			
+	 CreatePost($data);
+}
+function PostImage ($replyToken,$url){  
+	 $messages = ['type' => 'image','originalContentUrl' => $url, 'previewImageUrl' => $url];
+	 $data = ['replyToken' => $replyToken,'messages' => [$messages],];			
+	CreatePost($data);
+}
+function PostVdo ($replyToken,$urlImage,$urlVdo){  
+	$messages = ['type' => 'video','originalContentUrl' => $urlVdo, 'previewImageUrl' => $urlImage];
+	$data = ['replyToken' => $replyToken,'messages' => [$messages],];									 		
+	CreatePost($data);
+}
+function PostButton ($replyToken,$urlImage,$title,$text){  	
+	$actions = 	[	['type' => 'message','label' => 'yes','text' => 'yes'],
+		    				['type' => 'message','label' => 'no','text' => 'no']
+							];
+	$template = [	'type' => 'buttons','thumbnailImageUrl' => $urlImage,'title' => $title,'text' => $text,'actions' => $actions];
+
+	$messages = ['type' => 'template','altText' => $text,'template' => $template];	
+	$data = ['replyToken' => $replyToken,'messages' => [$messages],];	
+	PostText($replyToken,json_encode($data));
+	CreatePost($data);
+}
+function PostConfirm ($replyToken,$text){  			
+	$actions = 	[	['type' => 'message','label' => 'yes','text' => 'yes'],
+		    				['type' => 'message','label' => 'no','text' => 'no']];
+	$template = [	'type' => 'confirm','text' => $text,'actions' => $actions];
+
+	$messages = ['type' => 'template','altText' => $text,'template' => $template];	
+	$data = ['replyToken' => $replyToken,'messages' => [$messages],];	
+	PostText($replyToken,json_encode($data));
+	CreatePost($data);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+echo "Hi , I'm HLAM bot ";
+
+$content = file_get_contents('php://input');
+$events = json_decode($content, true);
+$ImageLink = 'https://www.img.in.th/images/496d1a61a8e62f514852bd31ea1b1725.jpg';
+$VDOLink = 'https://mokmoon.com/videos/Brown.mp4';
+
+if (!is_null($events['events'])) 
+{	
+  foreach ($events['events'] as $event) 
+  {		
+    if ($event['type'] == 'message' && $event['message']['type'] == 'text') 
+    {	
+			$text = $event['message']['text'];
+			$replyToken = $event['replyToken'];
+
+			if ($text =='register')
+			{
+				PostSticker($replyToken,2,161);
+				//PostConfirm($replyToken,'This is Confirm message');
+			}
+			elseif ($text =='training')
+			{
+				PostImage($replyToken,$ImageLink);
+				//PostButton($replyToken,$ImageLink,'Test button','This is Button message');
+			}
+			elseif ($text =='contact')
+			{
+				PostVdo($replyToken,$ImageLink,$VDOLink);
+			}
+			else
+			{      	          
+      				PostText($replyToken,$text);
+			}
+
+    }	
+  }
+}
+
+
 
 ?>
