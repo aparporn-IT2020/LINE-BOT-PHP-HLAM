@@ -77,6 +77,7 @@ if (!is_null($events['events']))
 			if ($text =='register')
 			{
 				//PostText($replyToken,$text);
+				PostButtons($replyToken,$ImageLink,'Test','are you confirm?');
 				$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
 				$response = $bot->replyMessage($replyToken, $textMessageBuilder);
 				if ($response->isSucceeded()) {
@@ -88,7 +89,7 @@ if (!is_null($events['events']))
 				echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 				}
 				
-				PostButtons($replyToken,$ImageLink,'Test','are you confirm?');
+				
 				
 			}
 	    		elseif ($text =='training')
