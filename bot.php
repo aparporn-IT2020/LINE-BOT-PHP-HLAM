@@ -58,7 +58,7 @@ function PostButtons ($replyToken,$urlImage,$title,$caption){
 
 
 $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('6zDMyMWoEbyMb0inVnCxNeglFVxuDjbX7S3V1fq0cvnGwHHHliSwJ3a/bSIERUAdc+lWr4chqBXbwGJT9HnZGTDAUQUGAg0O58NaiDN/83GzJ4R7Fa/FimarNBwZ+eW3zRDrv9B4/j/8hKmNJep9cgdB04t89/1O/w1cDnyilFU=');
-$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => '0126e35ca29d722a11fab40b4948db24']);
+//$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => '0126e35ca29d722a11fab40b4948db24']);
 
 $content = file_get_contents('php://input');
 $events = json_decode($content, true);
@@ -78,7 +78,7 @@ if (!is_null($events['events']))
 			{
 				//PostText($replyToken,$text);
 				PostButtons($replyToken,$ImageLink,'Test','are you confirm?');
-				$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
+				//$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
 				$response = $bot->replyMessage($replyToken, $textMessageBuilder);
 				if ($response->isSucceeded()) {
 						PostText($replyToken,'ok');
