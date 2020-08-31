@@ -67,7 +67,7 @@ function PostConfirm ($replyToken,$caption){
 
 $content = file_get_contents('php://input');
 $events = json_decode($content, true);
-$ImageLink = 'https://www.img.in.th/images/496d1a61a8e62f514852bd31ea1b1725.jpg';
+$ImageLink = 'https://developers.line.biz/media/homepage-products/products-messaging-api-sprite.png';
 $VDOLink = 'https://mokmoon.com/videos/Brown.mp4';
 
 if (!is_null($events['events'])) 
