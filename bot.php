@@ -78,7 +78,8 @@ if (!is_null($events['events']))
 			{
 				//PostText($replyToken,$text);
 				PostButtons($replyToken,$ImageLink,'Test','are you confirm?');
-				//$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
+				/*
+				$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
 				$response = $bot->replyMessage($replyToken, $textMessageBuilder);
 				if ($response->isSucceeded()) {
 						PostText($replyToken,'ok');
@@ -88,7 +89,7 @@ if (!is_null($events['events']))
 					// Failed
 				echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 				}
-				
+				*/
 				
 				
 			}
