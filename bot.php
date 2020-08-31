@@ -52,6 +52,16 @@ function PostButtons ($replyToken,$urlImage,$title,$caption){
 	PostText($replyToken,json_encode($data));
 	CreatePost($data);
 }
+function PostConfirm ($replyToken,$caption){  
+	$actions = [['type' => 'message','label' => 'yes','text' => 'yes'],['type' => 'message','label' => 'no','text' => 'no']];
+	$template = ['type' => 'confirm','text' => $caption,'actions' => $actions];
+	$messages = ['type' => 'template','template' => $template];
+	
+	$data = ['replyToken' => $replyToken,'messages' => [$messages],];
+	
+	PostText($replyToken,json_encode($data));
+	CreatePost($data);
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -76,7 +86,8 @@ if (!is_null($events['events']))
 			}
 	    		elseif ($text =='training')
 			{
-				PostText($replyToken,$text);				
+				//PostText($replyToken,$text);
+				PostButtons($replyToken,'are you confirm?');	
 			}	    
 	    		elseif ($text =='contact')
 			{
