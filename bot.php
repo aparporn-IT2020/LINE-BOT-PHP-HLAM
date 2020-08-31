@@ -20,8 +20,6 @@ function CreatePost ($data){
     	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
    	$result = curl_exec($ch);	
-	
-	PostText($replyToken,$result);
    	curl_close($ch);	
 	
 	
@@ -29,22 +27,22 @@ function CreatePost ($data){
 function PostText ($replyToken,$text){   
 		$messages = ['type' => 'text','text' => $text];
    	$data = ['replyToken' => $replyToken,'messages' => [$messages],];			
-   	return CreatePost($data);
+   	CreatePost($data);
 }
 function PostSticker ($replyToken,$packid,$stickerid){  
 	$messages = ['type' => 'sticker','packageId' => $packid, 'stickerId' => $stickerid];
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];			
-	 return CreatePost($data);
+	CreatePost($data);
 }
 function PostImage ($replyToken,$url){  
 	 $messages = ['type' => 'image','originalContentUrl' => $url, 'previewImageUrl' => $url];
 	 $data = ['replyToken' => $replyToken,'messages' => [$messages],];			
-	return CreatePost($data);
+	CreatePost($data);
 }
 function PostVdo ($replyToken,$urlImage,$urlVdo){  
 	$messages = ['type' => 'video','originalContentUrl' => $urlVdo, 'previewImageUrl' => $urlImage];
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];									 		
-	return CreatePost($data);
+	CreatePost($data);
 }
 function PostButtons ($replyToken,$urlImage,$title,$caption){  
 	$actions = [['type' => 'message','label' => 'yes','text' => 'yes'],['type' => 'message','label' => 'no','text' => 'no']];
@@ -54,7 +52,7 @@ function PostButtons ($replyToken,$urlImage,$title,$caption){
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];
 	
 	PostText($replyToken,json_encode($data));
-	return CreatePost($data);
+	CreatePost($data);
 }
 function PostConfirm ($replyToken,$caption){  
 	$actions = [['type' => 'message','label' => 'yes','text' => 'yes'],['type' => 'message','label' => 'no','text' => 'no']];
@@ -64,7 +62,7 @@ function PostConfirm ($replyToken,$caption){
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];
 	
 	PostText($replyToken,json_encode($data));
-	return CreatePost($data);
+	CreatePost($data);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
