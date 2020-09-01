@@ -1,6 +1,6 @@
 <?php
 
-
+namespace LINE;
 use LINE\LINEBot;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
