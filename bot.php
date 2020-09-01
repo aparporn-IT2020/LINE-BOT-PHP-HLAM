@@ -60,6 +60,9 @@ function PostConfirm ($replyToken,$caption){
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
+namespace LINE;
+
+use LINE\LINEBot;
 
 $content = file_get_contents('php://input');
 $events = json_decode($content, true);
