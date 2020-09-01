@@ -1,16 +1,16 @@
 <?php
 require_once '../vendor/autoload.php';
-
+/*
 use \LINE\LINEBot\HTTPClient;
 
 $content = file_get_contents('php://input');
 $events = json_decode($content, true);
 $ImageLink = 'https://developers.line.biz/media/homepage-products/products-messaging-api-sprite.png';
 $VDOLink = 'https://mokmoon.com/videos/Brown.mp4';
-
-$httpClient = new CurlHTTPClient('6zDMyMWoEbyMb0inVnCxNeglFVxuDjbX7S3V1fq0cvnGwHHHliSwJ3a/bSIERUAdc+lWr4chqBXbwGJT9HnZGTDAUQUGAg0O58NaiDN/83GzJ4R7Fa/FimarNBwZ+eW3zRDrv9B4/j/8hKmNJep9cgdB04t89/1O/w1cDnyilFU=');
+*/
+$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('6zDMyMWoEbyMb0inVnCxNeglFVxuDjbX7S3V1fq0cvnGwHHHliSwJ3a/bSIERUAdc+lWr4chqBXbwGJT9HnZGTDAUQUGAg0O58NaiDN/83GzJ4R7Fa/FimarNBwZ+eW3zRDrv9B4/j/8hKmNJep9cgdB04t89/1O/w1cDnyilFU=');
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => '0126e35ca29d722a11fab40b4948db24']);
-
+/*
 function CreatePost ($data){
    	$url = 'https://api.line.me/v2/bot/message/reply';
    	$access_token = '6zDMyMWoEbyMb0inVnCxNeglFVxuDjbX7S3V1fq0cvnGwHHHliSwJ3a/bSIERUAdc+lWr4chqBXbwGJT9HnZGTDAUQUGAg0O58NaiDN/83GzJ4R7Fa/FimarNBwZ+eW3zRDrv9B4/j/8hKmNJep9cgdB04t89/1O/w1cDnyilFU=';
@@ -61,14 +61,14 @@ function PostButtons ($replyToken,$urlImage,$title,$caption){
 	CreatePost($data);
 }
 function PostConfirm ($replyToken,$caption){  
-	/*
+	
 	$actions = [['type' => 'message','label' => 'yes','text' => 'yes'],['type' => 'message','label' => 'no','text' => 'no']];
 	$template = ['type' => 'confirm','text' => $caption,'actions' => $actions];
 	$messages = ['type' => 'template','altText' => 'This is Confirm message','template' => $template];
 	
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];		
 	CreatePost($outputText);
-	*/	
+		
 	$actions = array (
 			  New \LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder("yes", "ans=y"),
 			  New \LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder("no", "ans=N")
@@ -111,7 +111,7 @@ if (!is_null($events['events']))
   }		
 }
 
-
+*/
 echo "Hi , I'm HLAM bot ";
 
 ?>
