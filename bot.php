@@ -1,7 +1,7 @@
 <?php
 require_once '../vendor/autoload.php';
 
-use LINE\LINEBot\HTTPClient;
+use \LINE\LINEBot\HTTPClient;
 
 $content = file_get_contents('php://input');
 $events = json_decode($content, true);
