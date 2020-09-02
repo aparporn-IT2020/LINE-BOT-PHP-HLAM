@@ -68,7 +68,7 @@ $ImageLink = 'https://developers.line.biz/media/homepage-products/products-messa
 $VDOLink = 'https://mokmoon.com/videos/Brown.mp4';
 
 
-		if (!is_null($events['events'])) 
+if (!is_null($events['events'])) 
 	{	
 		foreach ($events['events'] as $event) 
 		{		
@@ -80,9 +80,9 @@ $VDOLink = 'https://mokmoon.com/videos/Brown.mp4';
 				if ($text =='register')
 				{		
 					PostText($replyToken,$text);
-					PostSticker($replyToken,2,161);
-					PostImage($replyToken,$ImageLink);
-					PostButtons($replyToken,$ImageLink,'Test','are you confirm?');			
+					//PostSticker($replyToken,2,161);
+					//PostImage($replyToken,$ImageLink);
+					//PostButtons($replyToken,$ImageLink,'Test','are you confirm?');			
 				}
 						elseif ($text =='training')
 				{				
