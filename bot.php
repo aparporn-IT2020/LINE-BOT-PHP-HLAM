@@ -1,5 +1,5 @@
 <?php
-require_once '../vendor/autoload.php';
+//require_once '../vendor/autoload.php';
 /*
 use \LINE\LINEBot\HTTPClient;
 
@@ -8,8 +8,8 @@ $events = json_decode($content, true);
 $ImageLink = 'https://developers.line.biz/media/homepage-products/products-messaging-api-sprite.png';
 $VDOLink = 'https://mokmoon.com/videos/Brown.mp4';
 */
-$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('6zDMyMWoEbyMb0inVnCxNeglFVxuDjbX7S3V1fq0cvnGwHHHliSwJ3a/bSIERUAdc+lWr4chqBXbwGJT9HnZGTDAUQUGAg0O58NaiDN/83GzJ4R7Fa/FimarNBwZ+eW3zRDrv9B4/j/8hKmNJep9cgdB04t89/1O/w1cDnyilFU=');
-$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => '0126e35ca29d722a11fab40b4948db24']);
+$httpClient = new LINE\LINEBot\HTTPClient\CurlHTTPClient('6zDMyMWoEbyMb0inVnCxNeglFVxuDjbX7S3V1fq0cvnGwHHHliSwJ3a/bSIERUAdc+lWr4chqBXbwGJT9HnZGTDAUQUGAg0O58NaiDN/83GzJ4R7Fa/FimarNBwZ+eW3zRDrv9B4/j/8hKmNJep9cgdB04t89/1O/w1cDnyilFU=');
+//$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => '0126e35ca29d722a11fab40b4948db24']);
 /*
 function CreatePost ($data){
    	$url = 'https://api.line.me/v2/bot/message/reply';
