@@ -79,15 +79,15 @@ if (!is_null($events['events']))
 
 				if ($text =='register')
 				{		
-					CreatePost(PostText($replyToken,$text).",".PostSticker($replyToken,1,2));												
+					CreatePost(PostText($replyToken,$text));												
 				}
 				elseif ($text =='training')
 				{				
-					CreatePost('',PostVdo($replyToken,$ImageLink,$VDOLink));
+					CreatePost(PostVdo($replyToken,$ImageLink,$VDOLink));
 				}	    
 				elseif ($text =='contact')
 				{
-					CreatePost('',PostButtons($replyToken,$ImageLink,'Test','Are you confirm?'));
+					CreatePost(PostButtons($replyToken,$ImageLink,'Test','Are you confirm?'));
 				}	    		
 				elseif ($text =='yes' || $text =='no')
 				{
