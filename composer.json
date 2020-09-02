@@ -2,5 +2,11 @@
 	"require": {
 		"linecorp/line-bot-sdk": "^4.5",
 		"php": "^7.4"
-	}
+	},
+	,
+  "autoload-dev": {
+    "psr-4": {
+      "LINE\\Tests\\": "tests/"
+    }
+  },
 }
