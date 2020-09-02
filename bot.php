@@ -1,7 +1,7 @@
 <?php
 try
 {
-	//require_once __DIR__ . '/vendor/autoload.php ';
+	require_once __DIR__ . '/vendor/autoload.php ';
 	$bot = new \LINE\LINEBot(new CurlHTTPClient('6zDMyMWoEbyMb0inVnCxNeglFVxuDjbX7S3V1fq0cvnGwHHHliSwJ3a/bSIERUAdc+lWr4chqBXbwGJT9HnZGTDAUQUGAg0O58NaiDN/83GzJ4R7Fa/FimarNBwZ+eW3zRDrv9B4/j/8hKmNJep9cgdB04t89/1O/w1cDnyilFU='), ['channelSecret' => '0126e35ca29d722a11fab40b4948db24']);
 }
 catch (Exception $e)
@@ -87,11 +87,11 @@ if (!is_null($events['events']))
 
 				if ($text =='register')
 				{		
-					//CreatePost(PostText($replyToken,$text));						
-					my $multipleMessageBuilder = new \LINE\LINEBot\MessageBuilder\MultiMessageBuilder();
+					CreatePost(PostText($replyToken,$text));						
+					/*my $multipleMessageBuilder = new \LINE\LINEBot\MessageBuilder\MultiMessageBuilder();
 					$multipleMessageBuilder->add(new TextMessageBuilder('text1', 'text2'))
 							       ->add(new AudioMessageBuilder('https://example.com/audio.mp4', 1000));
-					$res = $bot->replyMessage($replyToken, $multipleMessageBuilder);
+					$res = $bot->replyMessage($replyToken, $multipleMessageBuilder);*/
 				}
 				elseif ($text =='training')
 				{				
