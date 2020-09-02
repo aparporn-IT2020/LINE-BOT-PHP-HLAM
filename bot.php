@@ -1,27 +1,15 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
-/*
-use \LINE\LINEBot\HTTPClient;
 
-$content = file_get_contents('php://input');
-$events = json_decode($content, true);
 $ImageLink = 'https://developers.line.biz/media/homepage-products/products-messaging-api-sprite.png';
 $VDOLink = 'https://mokmoon.com/videos/Brown.mp4';
-*/
-try
-{
-	
-	$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('6zDMyMWoEbyMb0inVnCxNeglFVxuDjbX7S3V1fq0cvnGwHHHliSwJ3a/bSIERUAdc+lWr4chqBXbwGJT9HnZGTDAUQUGAg0O58NaiDN/83GzJ4R7Fa/FimarNBwZ+eW3zRDrv9B4/j/8hKmNJep9cgdB04t89/1O/w1cDnyilFU=');	
-}
-catch(Throwable $e) {
-    echo $e->getMessage().'\n';
-}
 
-//$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => '0126e35ca29d722a11fab40b4948db24']);
-/*
-function CreatePost ($data){
-   	$url = 'https://api.line.me/v2/bot/message/reply';
+$apiReply  = 'https://api.line.me/v2/bot/message/reply';
+$apiPush = 'https://api.line.me/v2/bot/message/push';
+
+
+function CreatePost ($url,$data){
+   	
    	$access_token = '6zDMyMWoEbyMb0inVnCxNeglFVxuDjbX7S3V1fq0cvnGwHHHliSwJ3a/bSIERUAdc+lWr4chqBXbwGJT9HnZGTDAUQUGAg0O58NaiDN/83GzJ4R7Fa/FimarNBwZ+eW3zRDrv9B4/j/8hKmNJep9cgdB04t89/1O/w1cDnyilFU=';
    	$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);	
    	$post = json_encode($data);			
@@ -38,27 +26,38 @@ function CreatePost ($data){
     	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
    	$result = curl_exec($ch);	
-   	curl_close($ch);		
+   	curl_close($ch);	
+	
+	$ch = curl_init($api); 
+		curl_setopt($ch, CURLOPT_POST, true); 
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST'); 
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
+		curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($body)); 
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array( 
+		'Content-Type: application/json; charser=UTF-8', 
+		'Authorization: Bearer '.$this->channelAccessToken)); 
+		$result = curl_exec($ch); 
+		curl_close($ch); 
 }
 function PostText ($replyToken,$text){   
 		$messages = ['type' => 'text','text' => $text];
    	$data = ['replyToken' => $replyToken,'messages' => [$messages],];			
-   	CreatePost($data);
+   	CreatePost($apiPush,$data);
 }
 function PostSticker ($replyToken,$packid,$stickerid){  
 	$messages = ['type' => 'sticker','packageId' => $packid, 'stickerId' => $stickerid];
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];			
-	CreatePost($data);
+	CreatePost($apiPush,$data);
 }
 function PostImage ($replyToken,$url){  
 	 $messages = ['type' => 'image','originalContentUrl' => $url, 'previewImageUrl' => $url];
 	 $data = ['replyToken' => $replyToken,'messages' => [$messages],];			
-	CreatePost($data);
+	CreatePost($apiPush,$data);
 }
 function PostVdo ($replyToken,$urlImage,$urlVdo){  
 	$messages = ['type' => 'video','originalContentUrl' => $urlVdo, 'previewImageUrl' => $urlImage];
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];									 		
-	CreatePost($data);
+	CreatePost($apiPush,$data);
 }
 function PostButtons ($replyToken,$urlImage,$title,$caption){  
 	$actions = [['type' => 'message','label' => 'yes','text' => 'yes'],['type' => 'message','label' => 'no','text' => 'no']];
@@ -67,7 +66,7 @@ function PostButtons ($replyToken,$urlImage,$title,$caption){
 	
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];
 		
-	CreatePost($data);
+	CreatePost($apiPush,$data);
 }
 function PostConfirm ($replyToken,$caption){  
 	
@@ -76,7 +75,7 @@ function PostConfirm ($replyToken,$caption){
 	$messages = ['type' => 'template','altText' => 'This is Confirm message','template' => $template];
 	
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];		
-	CreatePost($outputText);
+	CreatePost($apiPush,$data);
 		
 	$actions = array (
 			  New \LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder("yes", "ans=y"),
@@ -88,6 +87,10 @@ function PostConfirm ($replyToken,$caption){
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+$content = file_get_contents('php://input');
+$events = json_decode($content, true);
+
 if (!is_null($events['events'])) 
 {	
   foreach ($events['events'] as $event) 
@@ -98,13 +101,14 @@ if (!is_null($events['events']))
 			$replyToken = $event['replyToken'];
 
 			if ($text =='register')
-			{
-				//PostText($replyToken,$text);
+			{		
+				PostText($replyToken,$text);
+				PostSticker($replyToken,2,161);
+				PostImage($replyToken,$ImageLink);
 				PostButtons($replyToken,$ImageLink,'Test','are you confirm?');			
 			}
 	    		elseif ($text =='training')
-			{
-				//PostText($replyToken,$text);
+			{				
 				PostConfirm($replyToken,'are you confirm?');				
 			}	    
 	    		elseif ($text =='contact')
