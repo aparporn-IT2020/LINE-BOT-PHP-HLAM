@@ -1,5 +1,6 @@
 <?php
 
+require_once __DIR__ . '/vendor/autoload.php ';
 
 function CreatePost ($data){
    	$url = 'https://api.line.me/v2/bot/message/reply';
