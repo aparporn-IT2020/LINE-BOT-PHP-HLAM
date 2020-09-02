@@ -79,7 +79,7 @@ if (!is_null($events['events']))
 
 				if ($text =='register')
 				{		
-					CreatePost(PostText($replyToken,$text).PostSticker($replyToken,1,2));												
+					CreatePost(PostText($replyToken,$text).",".PostSticker($replyToken,1,2));												
 				}
 				elseif ($text =='training')
 				{				
