@@ -25,27 +25,28 @@ function CreatePost ($urltype,$data){
     	curl_setopt($ch, CURLOPT_POST, true);
     	
    	$result = curl_exec($ch);	
-   	curl_close($ch);		
+   	curl_close($ch);
+	return $result;
 }
 function PostText ($replyToken,$text){   
 		$messages = ['type' => 'text','text' => $text];
    	$data = ['replyToken' => $replyToken,'messages' => [$messages],];			
-   	CreatePost('',$data);
+   	return CreatePost('',$data);
 }
 function PostSticker ($replyToken,$packid,$stickerid){  
 	$messages = ['type' => 'sticker','packageId' => $packid, 'stickerId' => $stickerid];
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];			
-	CreatePost('',$data);
+	return CreatePost('',$data);
 }
 function PostImage ($replyToken,$url){  
 	 $messages = ['type' => 'image','originalContentUrl' => $url, 'previewImageUrl' => $url];
 	 $data = ['replyToken' => $replyToken,'messages' => [$messages],];			
-	CreatePost('',$data);
+	return CreatePost('',$data);
 }
 function PostVdo ($replyToken,$urlImage,$urlVdo){  
 	$messages = ['type' => 'video','originalContentUrl' => $urlVdo, 'previewImageUrl' => $urlImage];
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];									 		
-	CreatePost('',$data);
+	return CreatePost('',$data);
 }
 function PostButtons ($replyToken,$urlImage,$title,$caption){  
 	$actions = [['type' => 'message','label' => 'yes','text' => 'yes'],['type' => 'message','label' => 'no','text' => 'no']];
@@ -54,7 +55,7 @@ function PostButtons ($replyToken,$urlImage,$title,$caption){
 	
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];
 		
-	CreatePost('',$data);
+	return CreatePost('',$data);
 }
 function PostConfirm ($replyToken,$caption){  
 	
@@ -63,7 +64,7 @@ function PostConfirm ($replyToken,$caption){
 	$messages = ['type' => 'template','altText' => 'This is Confirm message','template' => $template];
 	
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];		
-	CreatePost('',$data);		
+	return CreatePost('',$data);		
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
