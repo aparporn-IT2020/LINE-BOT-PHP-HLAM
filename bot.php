@@ -11,7 +11,7 @@ $apiPush = 'https://api.line.me/v2/bot/message/push';
 function CreatePost ($url,$data){
    	
    	$access_token = '6zDMyMWoEbyMb0inVnCxNeglFVxuDjbX7S3V1fq0cvnGwHHHliSwJ3a/bSIERUAdc+lWr4chqBXbwGJT9HnZGTDAUQUGAg0O58NaiDN/83GzJ4R7Fa/FimarNBwZ+eW3zRDrv9B4/j/8hKmNJep9cgdB04t89/1O/w1cDnyilFU=';
-   	$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);	
+   	$headers = array('Content-Type: application/json; charser=UTF-8', 'Authorization: Bearer ' . $access_token);	
    	$post = json_encode($data);			
 
    	$ch = curl_init();	
@@ -21,23 +21,12 @@ function CreatePost ($url,$data){
    	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);			
    	curl_setopt($ch, CURLOPT_POSTFIELDS, $post);			
    	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers); 
-    	curl_setopt($ch, CURLOPT_HEADER, false);
+//    	curl_setopt($ch, CURLOPT_HEADER, false);
     	curl_setopt($ch, CURLOPT_POST, true);
-    	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    	//curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
    	$result = curl_exec($ch);	
-   	curl_close($ch);	
-	
-	$ch = curl_init($api); 
-		curl_setopt($ch, CURLOPT_POST, true); 
-		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST'); 
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
-		curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($body)); 
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array( 
-		'Content-Type: application/json; charser=UTF-8', 
-		'Authorization: Bearer '.$this->channelAccessToken)); 
-		$result = curl_exec($ch); 
-		curl_close($ch); 
+   	curl_close($ch);		
 }
 function PostText ($replyToken,$text){   
 		$messages = ['type' => 'text','text' => $text];
@@ -75,15 +64,7 @@ function PostConfirm ($replyToken,$caption){
 	$messages = ['type' => 'template','altText' => 'This is Confirm message','template' => $template];
 	
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];		
-	CreatePost($apiPush,$data);
-		
-	$actions = array (
-			  New \LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder("yes", "ans=y"),
-			  New \LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder("no", "ans=N")
-			);
-	$button = new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder($caption, $actions);
-	$outputText = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder("confim message", $button);
-	$response = $bot->replyMessage($replyToken, $outputText);
+	CreatePost($apiPush,$data);		
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
