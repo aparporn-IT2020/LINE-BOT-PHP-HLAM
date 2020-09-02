@@ -56,7 +56,7 @@ function PostVdo ($replyToken,$urlImage,$urlVdo){
 }
 function PostButtons ($replyToken,$urlImage,$title,$caption){  
 	$actions = [new MessageTemplateActionBuilder('Yes', 'yes'),new MessageTemplateActionBuilder('No', 'no')];
-	$template = new ButtonTemplateBuilder($title,$caption,$urlImage,$actions);
+	$template = new ButtonTemplateBuilder($title,$caption,$urlImage,$actions,'rectangle','cover','#FFFFFF');
 	$messages = new LINEBot\MessageBuilder\TemplateMessageBuilder('This is button message',$template);
 	
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];
