@@ -1,12 +1,19 @@
 <?php
 require "vendor/autoload.php";
 
-try {
-    $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('6zDMyMWoEbyMb0inVnCxNeglFVxuDjbX7S3V1fq0cvnGwHHHliSwJ3a/bSIERUAdc+lWr4chqBXbwGJT9HnZGTDAUQUGAg0O58NaiDN/83GzJ4R7Fa/FimarNBwZ+eW3zRDrv9B4/j/8hKmNJep9cgdB04t89/1O/w1cDnyilFU=');
-$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => '0126e35ca29d722a11fab40b4948db24']);
-} catch (Exception $e) {
-    echo $e->getMessage();
-}
+use LINE\LINEBot;
+use LINE\LINEBot\Constant\ActionType;
+use LINE\LINEBot\Constant\MessageType;
+use LINE\LINEBot\Constant\TemplateType;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\ImageCarouselTemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\ImageCarouselColumnTemplateBuilder;
+use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
+use LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder;
+use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
+use LINE\LINEBot\TemplateActionBuilder\Uri\AltUriBuilder;
+use LINE\LINEBot\TemplateActionBuilder\DatetimePickerTemplateActionBuilder;
+
 
 function CreatePost ($data){
    	$url = 'https://api.line.me/v2/bot/message/reply';
@@ -48,9 +55,9 @@ function PostVdo ($replyToken,$urlImage,$urlVdo){
 	return $data;
 }
 function PostButtons ($replyToken,$urlImage,$title,$caption){  
-	$actions = [['type' => 'message','label' => 'yes','text' => 'yes'],['type' => 'message','label' => 'no','text' => 'no']];
-	$template = ['type' => 'buttons','thumbnailImageUrl' => $urlImage,'title' => $title,'text' => $caption,'actions' => $actions];
-	$messages = ['type' => 'template','template' => $template];
+	$actions = [new MessageTemplateActionBuilder('Yes', 'yes'),new MessageTemplateActionBuilder('No', 'no')];
+	$template = new ButtonTemplateBuilder($title,$caption,$urlImage,$actions);
+	$messages = new LINEBot\MessageBuilder\TemplateMessageBuilder('This is button message',$template);
 	
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];
 		
@@ -58,12 +65,12 @@ function PostButtons ($replyToken,$urlImage,$title,$caption){
 }
 function PostConfirm ($replyToken,$caption){  
 	
-	$actions = [['type' => 'message','label' => 'yes','text' => 'yes'],['type' => 'message','label' => 'no','text' => 'no']];
-	$template = ['type' => 'confirm','text' => $caption,'actions' => $actions];
+	/*//$actions = [new MessageTemplateActionBuilder('Yes', 'yes'),new MessageTemplateActionBuilder('No', 'no')];
+	//$template = new ButtonTemplateBuilder ($caption,'actions' => $actions]);
 	$messages = ['type' => 'template','altText' => 'This is Confirm message','template' => $template];
 	
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];		
-	return $data;		
+	return $data;		*/
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -73,6 +80,9 @@ $events = json_decode($content, true);
 
 $ImageLink = 'https://developers.line.biz/media/homepage-products/products-messaging-api-sprite.png';
 $VDOLink = 'https://mokmoon.com/videos/Brown.mp4';
+
+$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('6zDMyMWoEbyMb0inVnCxNeglFVxuDjbX7S3V1fq0cvnGwHHHliSwJ3a/bSIERUAdc+lWr4chqBXbwGJT9HnZGTDAUQUGAg0O58NaiDN/83GzJ4R7Fa/FimarNBwZ+eW3zRDrv9B4/j/8hKmNJep9cgdB04t89/1O/w1cDnyilFU=');
+$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => '0126e35ca29d722a11fab40b4948db24']);
 
 if (!is_null($events['events'])) 
 	{	
@@ -85,11 +95,7 @@ if (!is_null($events['events']))
 
 				if ($text =='register')
 				{		
-					CreatePost(PostText($replyToken,$text));						
-					/*my $multipleMessageBuilder = new \LINE\LINEBot\MessageBuilder\MultiMessageBuilder();
-					$multipleMessageBuilder->add(new TextMessageBuilder('text1', 'text2'))
-							       ->add(new AudioMessageBuilder('https://example.com/audio.mp4', 1000));
-					$res = $bot->replyMessage($replyToken, $multipleMessageBuilder);*/
+					CreatePost(PostButtons($replyToken,$ImageLink,'Test','Are you confirm?'));
 				}
 				elseif ($text =='training')
 				{				
