@@ -115,7 +115,7 @@ if (!is_null($events['events']))
 			}
 			catch (Exception $e)
 			{
-				echo $e->getMessage();
+				CreatePost(PostText($replyToken,$e->getMessage()));
 			}
 		}		
 	}
