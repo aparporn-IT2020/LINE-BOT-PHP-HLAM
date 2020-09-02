@@ -13,10 +13,8 @@ function CreatePost ($data){
    	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);			
    	curl_setopt($ch, CURLOPT_POSTFIELDS, $post);			
    	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers); 
-//    	curl_setopt($ch, CURLOPT_HEADER, false);
     	curl_setopt($ch, CURLOPT_POST, true);
-    	//curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-
+    	
    	$result = curl_exec($ch);	
    	curl_close($ch);		
 }
@@ -80,15 +78,15 @@ if (!is_null($events['events']))
 				if ($text =='register')
 				{		
 					PostText($replyToken,$text);
-					//PostSticker($replyToken,2,161);
-					//PostImage($replyToken,$ImageLink);
-					//PostButtons($replyToken,$ImageLink,'Test','are you confirm?');			
+					PostSticker($replyToken,2,161);
+					PostImage($replyToken,$ImageLink);
+					PostButtons($replyToken,$ImageLink,'Test','are you confirm?');			
 				}
-						elseif ($text =='training')
+				elseif ($text =='training')
 				{				
 					PostConfirm($replyToken,'are you confirm?');				
 				}	    
-						elseif ($text =='contact')
+				elseif ($text =='contact')
 				{
 					PostText($replyToken,$text);				
 				}	    		
@@ -100,7 +98,6 @@ if (!is_null($events['events']))
 
 		}		
 	}
-}
 
 echo "Hi , I'm HLAM bot ";
 
