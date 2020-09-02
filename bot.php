@@ -31,22 +31,22 @@ function CreatePost ($urltype,$data){
 function PostText ($replyToken,$text){   
 		$messages = ['type' => 'text','text' => $text];
    	$data = ['replyToken' => $replyToken,'messages' => [$messages],];			
-   	return CreatePost('',$data);
+   	return $data;
 }
 function PostSticker ($replyToken,$packid,$stickerid){  
 	$messages = ['type' => 'sticker','packageId' => $packid, 'stickerId' => $stickerid];
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];			
-	return CreatePost('',$data);
+	return $data;
 }
 function PostImage ($replyToken,$url){  
 	 $messages = ['type' => 'image','originalContentUrl' => $url, 'previewImageUrl' => $url];
 	 $data = ['replyToken' => $replyToken,'messages' => [$messages],];			
-	return CreatePost('',$data);
+	return $data;
 }
 function PostVdo ($replyToken,$urlImage,$urlVdo){  
 	$messages = ['type' => 'video','originalContentUrl' => $urlVdo, 'previewImageUrl' => $urlImage];
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];									 		
-	return CreatePost('',$data);
+	return $data;
 }
 function PostButtons ($replyToken,$urlImage,$title,$caption){  
 	$actions = [['type' => 'message','label' => 'yes','text' => 'yes'],['type' => 'message','label' => 'no','text' => 'no']];
@@ -55,7 +55,7 @@ function PostButtons ($replyToken,$urlImage,$title,$caption){
 	
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];
 		
-	return CreatePost('',$data);
+	return $data;
 }
 function PostConfirm ($replyToken,$caption){  
 	
@@ -64,7 +64,7 @@ function PostConfirm ($replyToken,$caption){
 	$messages = ['type' => 'template','altText' => 'This is Confirm message','template' => $template];
 	
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];		
-	return CreatePost('',$data);		
+	return $data;		
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -87,21 +87,19 @@ if (!is_null($events['events']))
 
 				if ($text =='register')
 				{		
-					PostText($replyToken,$text);
-					PostSticker($replyToken,1,2);
-					PostImage($replyToken,$ImageLink);							
+					CreatePost('',array(PostText($replyToken,$text),PostSticker($replyToken,1,2)));												
 				}
 				elseif ($text =='training')
 				{				
-					PostVdo($replyToken,$ImageLink,$VDOLink);
+					CreatePost('',PostVdo($replyToken,$ImageLink,$VDOLink));
 				}	    
 				elseif ($text =='contact')
 				{
-					PostButtons($replyToken,$ImageLink,'Test','Are you confirm?');
+					CreatePost('',PostButtons($replyToken,$ImageLink,'Test','Are you confirm?'));
 				}	    		
 				elseif ($text =='yes' || $text =='no')
 				{
-					PostText($replyToken,'Thank you');
+					CreatePost('',PostText($replyToken,'Thank you'));
 				}		
 			}
 
