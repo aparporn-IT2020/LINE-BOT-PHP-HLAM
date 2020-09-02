@@ -77,18 +77,15 @@ if (!is_null($events['events']))
 
 				if ($text =='register')
 				{		
-					PostText($replyToken,$text);
-					PostSticker($replyToken,2,161);
-					PostImage($replyToken,$ImageLink);
-					PostButtons($replyToken,$ImageLink,'Test','are you confirm?');			
+					PostText($replyToken,$text);						
 				}
 				elseif ($text =='training')
 				{				
-					PostConfirm($replyToken,'are you confirm?');				
+					PostSticker($replyToken,1,2);					
 				}	    
 				elseif ($text =='contact')
 				{
-					PostText($replyToken,$text);				
+					PostImage($replyToken,$ImageLink);							
 				}	    		
 				elseif ($text =='yes' || $text =='no')
 				{
