@@ -1,4 +1,5 @@
 <?php
+/*
 try
 {
 	//require_once __DIR__ . '/composer/autoload_real.php';
@@ -8,7 +9,7 @@ catch (Exception $e)
 {
 	echo $e->getMessage();
 }
-
+*/
 
 function CreatePost ($data){
    	$url = 'https://api.line.me/v2/bot/message/reply';
