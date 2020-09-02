@@ -1,16 +1,8 @@
 <?php
-$apiPush = 
-$apiReply = 'https://api.line.me/v2/bot/message/reply';
 
-function CreatePost ($urltype,$data){
-   	if ($urltype == 'push')
-		{
-			$url = 'https://api.line.me/v2/bot/message/push';
-		}
-		else
-		{
-			$url = 'https://api.line.me/v2/bot/message/reply';
-		}
+
+function CreatePost ($data){
+   	$url = 'https://api.line.me/v2/bot/message/reply';
    	$access_token = '6zDMyMWoEbyMb0inVnCxNeglFVxuDjbX7S3V1fq0cvnGwHHHliSwJ3a/bSIERUAdc+lWr4chqBXbwGJT9HnZGTDAUQUGAg0O58NaiDN/83GzJ4R7Fa/FimarNBwZ+eW3zRDrv9B4/j/8hKmNJep9cgdB04t89/1O/w1cDnyilFU=';
    	$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);	
    	$post = json_encode($data);			
@@ -87,7 +79,7 @@ if (!is_null($events['events']))
 
 				if ($text =='register')
 				{		
-					CreatePost('',array(PostText($replyToken,$text),PostSticker($replyToken,1,2)));												
+					CreatePost(PostText($replyToken,$text));												
 				}
 				elseif ($text =='training')
 				{				
