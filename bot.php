@@ -1,9 +1,16 @@
 <?php
-$apiPush = 'https://api.line.me/v2/bot/message/push';
+$apiPush = 
 $apiReply = 'https://api.line.me/v2/bot/message/reply';
 
-function CreatePost ($url,$data){
-   	
+function CreatePost ($urltype,$data){
+   	if ($urltype == 'push')
+		{
+			$url = 'https://api.line.me/v2/bot/message/push';
+		}
+		else
+		{
+			$url = 'https://api.line.me/v2/bot/message/reply';
+		}
    	$access_token = '6zDMyMWoEbyMb0inVnCxNeglFVxuDjbX7S3V1fq0cvnGwHHHliSwJ3a/bSIERUAdc+lWr4chqBXbwGJT9HnZGTDAUQUGAg0O58NaiDN/83GzJ4R7Fa/FimarNBwZ+eW3zRDrv9B4/j/8hKmNJep9cgdB04t89/1O/w1cDnyilFU=';
    	$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);	
    	$post = json_encode($data);			
@@ -23,22 +30,22 @@ function CreatePost ($url,$data){
 function PostText ($replyToken,$text){   
 		$messages = ['type' => 'text','text' => $text];
    	$data = ['replyToken' => $replyToken,'messages' => [$messages],];			
-   	CreatePost($apiReply,$data);
+   	CreatePost('',$data);
 }
 function PostSticker ($replyToken,$packid,$stickerid){  
 	$messages = ['type' => 'sticker','packageId' => $packid, 'stickerId' => $stickerid];
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];			
-	CreatePost($apiReply,$data);
+	CreatePost('',$data);
 }
 function PostImage ($replyToken,$url){  
 	 $messages = ['type' => 'image','originalContentUrl' => $url, 'previewImageUrl' => $url];
 	 $data = ['replyToken' => $replyToken,'messages' => [$messages],];			
-	CreatePost($apiReply,$data);
+	CreatePost('',$data);
 }
 function PostVdo ($replyToken,$urlImage,$urlVdo){  
 	$messages = ['type' => 'video','originalContentUrl' => $urlVdo, 'previewImageUrl' => $urlImage];
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];									 		
-	CreatePost($apiReply,$data);
+	CreatePost('',$data);
 }
 function PostButtons ($replyToken,$urlImage,$title,$caption){  
 	$actions = [['type' => 'message','label' => 'yes','text' => 'yes'],['type' => 'message','label' => 'no','text' => 'no']];
@@ -47,7 +54,7 @@ function PostButtons ($replyToken,$urlImage,$title,$caption){
 	
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];
 		
-	CreatePost($apiPush,$data);
+	CreatePost('',$data);
 }
 function PostConfirm ($replyToken,$caption){  
 	
@@ -56,7 +63,7 @@ function PostConfirm ($replyToken,$caption){
 	$messages = ['type' => 'template','altText' => 'This is Confirm message','template' => $template];
 	
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];		
-	CreatePost($apiPush,$data);		
+	CreatePost('',$data);		
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
