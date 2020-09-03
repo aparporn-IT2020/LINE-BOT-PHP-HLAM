@@ -116,8 +116,6 @@ if (!is_null($events['events']))
 				elseif ($text =='training')
 				{
 					CreatePost(PostText($replyToken,$text));
-					CreatePost(PostConfirm($replyToken,'Are you confirm?'));
-					$response = $bot->replyMessage($event->getReplyToken(), PostConfirm($replyToken,'Are you confirm?'));
 				}	    
 				elseif ($text =='contact')
 				{
