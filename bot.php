@@ -101,18 +101,20 @@ if (!is_null($events['events']))
 					CreatePost(PostButtons($replyToken,$ImageLink,'Test','Are you confirm?'));
 				}
 				elseif ($text =='training')
-				{				
+				{
+					CreatePost(PostText($replyToken,$text));
 					//CreatePost(PostConfirm($replyToken,'Are you confirm?'));
 					$response = $bot->replyMessage($event->getReplyToken(), PostConfirm($replyToken,'Are you confirm?'));
 				}	    
 				elseif ($text =='contact')
 				{
+					CreatePost(PostText($replyToken,$text));
 					//CreatePost(PostButtons($replyToken,$ImageLink,'Test','Are you confirm?'));
 					$response = $bot->replyMessage($event->getReplyToken(),'Hello');
 				}	    		
 				elseif ($text =='yes' || $text =='no')
 				{
-					CreatePost('',PostText($replyToken,'Thank you'));
+					CreatePost(PostText($replyToken,'Thank you'));
 				}		
 			}
 			}
