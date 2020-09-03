@@ -17,7 +17,7 @@ use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\Uri\AltUriBuilder;
 use LINE\LINEBot\TemplateActionBuilder\DatetimePickerTemplateActionBuilder;
 
-function CreatePost ($data){
+function CreateReply ($data){
    	$url = 'https://api.line.me/v2/bot/message/reply';
    	$access_token = '6zDMyMWoEbyMb0inVnCxNeglFVxuDjbX7S3V1fq0cvnGwHHHliSwJ3a/bSIERUAdc+lWr4chqBXbwGJT9HnZGTDAUQUGAg0O58NaiDN/83GzJ4R7Fa/FimarNBwZ+eW3zRDrv9B4/j/8hKmNJep9cgdB04t89/1O/w1cDnyilFU=';
    	$headers = array('Content-Type: application/json; charset=utf-8', 'Authorization: Bearer ' . $access_token);	
@@ -59,19 +59,19 @@ function PostVdo ($replyToken,$urlImage,$urlVdo){
 function PostButtons ($replyToken,$urlImage,$title,$caption){  
 	$actions = [['type' => 'postback','label' => 'Yes','data' => 'action=buy&itemid=123'],
 		    ['type' => 'postback','label' => 'No','data' => 'action=sell&itemid=456']];
-	$template = ['type' => 'buttons','thumbnailImageUrl' => $urlImage,'title' => $title,'text' => $caption,'actions' =>];
+	$template = ['type' => 'buttons','thumbnailImageUrl' => $urlImage,'title' => $title,'text' => $caption,'actions' => $actions];
 	$messages = ['type' => 'template','altText' => 'This is button message','template' => $template];
 	
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];									 		
 	return $data;
 }
 function PostConfirm ($replyToken,$caption){  
-	$actions = array (
-			  New \LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder("yes", "ans=y"),
-			  New \LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder("no", "ans=N"));
-	$button = new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder($caption, $actions);
-	$messages = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder("This is confim message", $button);
-	//$data = ['replyToken' => $replyToken,'messages' => [$messages],];		
+	$actions = [['type' => 'message','label' => 'Yes','text' => 'yes'],
+		    ['type' => 'message','label' => 'No','text' => 'no']];
+	$template = ['type' => 'confirm','text' => $caption,'actions' => $actions];
+	$messages = ['type' => 'template','altText' => 'This is button message','template' => $template];
+	
+	$data = ['replyToken' => $replyToken,'messages' => [$messages],];									 		
 	return $data;
 }
 
@@ -82,9 +82,6 @@ $events = json_decode($content, true);
 
 $ImageLink = 'https://developers.line.biz/media/homepage-products/products-messaging-api-sprite.png';
 $VDOLink = 'https://mokmoon.com/videos/Brown.mp4';
-
-$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('6zDMyMWoEbyMb0inVnCxNeglFVxuDjbX7S3V1fq0cvnGwHHHliSwJ3a/bSIERUAdc+lWr4chqBXbwGJT9HnZGTDAUQUGAg0O58NaiDN/83GzJ4R7Fa/FimarNBwZ+eW3zRDrv9B4/j/8hKmNJep9cgdB04t89/1O/w1cDnyilFU=');
-$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => '0126e35ca29d722a11fab40b4948db24']);
 
 if (!is_null($events['events'])) 
 	{	
@@ -99,21 +96,19 @@ if (!is_null($events['events']))
 
 				if ($text =='register')
 				{
-					CreatePost(PostButtons($replyToken,$ImageLink,'Test','Are you confirm?'));
+					CreateReply(PostButtons($replyToken,$ImageLink,'Test','Are you confirm?'));
 				}
 				elseif ($text =='training')
 				{
-					CreatePost(PostText($replyToken,$text));
+					CreateReply(PostConfirm($replyToken,'Are you confirm?'));
 				}	    
 				elseif ($text =='contact')
 				{
-					CreatePost(PostText($replyToken,$text));
-					//CreatePost(PostButtons($replyToken,$ImageLink,'Test','Are you confirm?'));
-					$response = $bot->replyMessage($event->getReplyToken(),'Hello');
+					CreateReply(PostText($replyToken,$text));										
 				}	    		
 				elseif ($text =='yes' || $text =='no')
 				{
-					CreatePost(PostText($replyToken,'Thank you'));
+					CreateReply(PostText($replyToken,'Thank you'));
 				}		
 			}
 			}
