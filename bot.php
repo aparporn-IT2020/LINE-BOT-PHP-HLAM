@@ -107,7 +107,7 @@ if (!is_null($events['events']))
 					$button = new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder("confim message", $actions);
 					$outputText = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder("confim message", $button);
 					//$response = $bot->replyMessage($event->getReplyToken(), $outputText);
-						CreatePost(PostText($replyToken,$outputText));
+						CreatePost(PostText($replyToken,json_encode($outputText)));
 					}
 					catch (Exception $e)
 					{
