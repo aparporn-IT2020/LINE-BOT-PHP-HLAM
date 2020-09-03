@@ -106,7 +106,8 @@ if (!is_null($events['events']))
 				}	    
 				elseif ($text =='contact')
 				{
-					CreatePost(PostButtons($replyToken,$ImageLink,'Test','Are you confirm?'));
+					//CreatePost(PostButtons($replyToken,$ImageLink,'Test','Are you confirm?'));
+					$response = $bot->replyMessage($event->getReplyToken(),'Hello');
 				}	    		
 				elseif ($text =='yes' || $text =='no')
 				{
