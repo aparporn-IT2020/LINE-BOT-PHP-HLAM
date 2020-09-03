@@ -98,6 +98,8 @@ if (!is_null($events['events']))
 
 				if ($text =='register')
 				{
+					try{
+						
 					$actions = array (
 					  New \LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder("yes", "ans=y"),
 					  New \LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder("no", "ans=N")
@@ -105,6 +107,11 @@ if (!is_null($events['events']))
 					$button = new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder("confim message", $actions);
 					$outputText = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder("confim message", $button);
 					$response = $bot->replyMessage($event->getReplyToken(), $outputText);
+					}
+					catch (Exception $e)
+					{
+						CreatePost(PostText($replyToken,$e->getMessage()));
+					}
 				}
 				elseif ($text =='training')
 				{
