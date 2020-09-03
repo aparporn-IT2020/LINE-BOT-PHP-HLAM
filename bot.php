@@ -64,13 +64,13 @@ function PostButtons ($replyToken,$urlImage,$title,$caption){
 	return $data;
 }
 function PostConfirm ($replyToken,$caption){  
-	
-	/*//$actions = [new MessageTemplateActionBuilder('Yes', 'yes'),new MessageTemplateActionBuilder('No', 'no')];
-	//$template = new ButtonTemplateBuilder ($caption,'actions' => $actions]);
-	$messages = ['type' => 'template','altText' => 'This is Confirm message','template' => $template];
-	
+	$actions = array (
+			  New \LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder("yes", "ans=y"),
+			  New \LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder("no", "ans=N"));
+	$button = new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder($caption, $actions);
+	$messages = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder("This is confim message", $button);
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];		
-	return $data;		*/
+	
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -101,7 +101,7 @@ if (!is_null($events['events']))
 				}
 				elseif ($text =='training')
 				{				
-					CreatePost(PostVdo($replyToken,$ImageLink,$VDOLink));
+					CreatePost(PostConfirm($replyToken,'Are you confirm?'));
 				}	    
 				elseif ($text =='contact')
 				{
