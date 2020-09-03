@@ -69,8 +69,8 @@ function PostConfirm ($replyToken,$caption){
 			  New \LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder("no", "ans=N"));
 	$button = new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder($caption, $actions);
 	$messages = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder("This is confim message", $button);
-	$data = ['replyToken' => $replyToken,'messages' => [$messages],];		
-	
+	//$data = ['replyToken' => $replyToken,'messages' => [$messages],];		
+	return $data;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -101,7 +101,8 @@ if (!is_null($events['events']))
 				}
 				elseif ($text =='training')
 				{				
-					CreatePost(PostConfirm($replyToken,'Are you confirm?'));
+					//CreatePost(PostConfirm($replyToken,'Are you confirm?'));
+					$response = $bot->replyMessage($event->getReplyToken(), PostConfirm($replyToken,'Are you confirm?'));
 				}	    
 				elseif ($text =='contact')
 				{
