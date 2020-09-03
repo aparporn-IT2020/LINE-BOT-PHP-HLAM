@@ -16,9 +16,9 @@ use LINE\LINEBot\TemplateActionBuilder\Uri\AltUriBuilder;
 use LINE\LINEBot\TemplateActionBuilder\DatetimePickerTemplateActionBuilder;
 
 function CreatePost ($data){
-   	$url = 'https://api.line.me/v2/bot/message/reply';
+   	$url = 'https://api.line.me/v2/bot/message/push';
    	$access_token = '6zDMyMWoEbyMb0inVnCxNeglFVxuDjbX7S3V1fq0cvnGwHHHliSwJ3a/bSIERUAdc+lWr4chqBXbwGJT9HnZGTDAUQUGAg0O58NaiDN/83GzJ4R7Fa/FimarNBwZ+eW3zRDrv9B4/j/8hKmNJep9cgdB04t89/1O/w1cDnyilFU=';
-   	$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);	
+   	$headers = array('Content-Type: application/json; charset=utf-8', 'Authorization: Bearer ' . $access_token);	
    	$post = json_encode($data);			
 
    	$ch = curl_init();	
@@ -103,7 +103,7 @@ if (!is_null($events['events']))
 				elseif ($text =='training')
 				{
 					CreatePost(PostText($replyToken,$text));
-					//CreatePost(PostConfirm($replyToken,'Are you confirm?'));
+					CreatePost(PostConfirm($replyToken,'Are you confirm?'));
 					$response = $bot->replyMessage($event->getReplyToken(), PostConfirm($replyToken,'Are you confirm?'));
 				}	    
 				elseif ($text =='contact')
