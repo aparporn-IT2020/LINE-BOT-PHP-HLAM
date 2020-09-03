@@ -1,5 +1,5 @@
 <?php
-require_once '../vendor/autoload.php';
+require '../vendor/autoload.php';
 
 use LINE\LINEBot;
 use LINE\LINEBot\Constant\ActionType;
