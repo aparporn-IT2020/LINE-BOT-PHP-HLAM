@@ -1,19 +1,4 @@
 <?php
-require 'vendor/autoload.php';
-
-use LINE\LINEBot;
-use LINE\LINEBot\Constant\ActionType;
-use LINE\LINEBot\Constant\MessageType;
-use LINE\LINEBot\Constant\TemplateType;
-use LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
-use LINE\LINEBot\MessageBuilder\TemplateBuilder\ImageCarouselTemplateBuilder;
-use LINE\LINEBot\MessageBuilder\TemplateBuilder\ImageCarouselColumnTemplateBuilder;
-use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
-use LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder;
-use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
-use LINE\LINEBot\TemplateActionBuilder\Uri\AltUriBuilder;
-use LINE\LINEBot\TemplateActionBuilder\DatetimePickerTemplateActionBuilder;
-
 
 function CreatePost ($data){
    	$url = 'https://api.line.me/v2/bot/message/reply';
@@ -55,6 +40,7 @@ function PostVdo ($replyToken,$urlImage,$urlVdo){
 	return $data;
 }
 function PostButtons ($replyToken,$urlImage,$title,$caption){  
+	/*
 	$actions = [new MessageTemplateActionBuilder('Yes', 'yes'),new MessageTemplateActionBuilder('No', 'no')];
 	$template = new ButtonTemplateBuilder($title,$caption,$urlImage,$actions,'rectangle','cover','#FFFFFF');
 	$messages = new LINEBot\MessageBuilder\TemplateMessageBuilder('This is button message',$template);
@@ -62,6 +48,7 @@ function PostButtons ($replyToken,$urlImage,$title,$caption){
 	$data = ['replyToken' => $replyToken,'messages' => [$messages],];
 		
 	return $data;
+	*/
 }
 function PostConfirm ($replyToken,$caption){  
 	$actions = array (
