@@ -7,8 +7,10 @@ use LINE\LINEBot\Constant\ActionType;
 use LINE\LINEBot\Constant\MessageType;
 use LINE\LINEBot\Constant\TemplateType;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\ImageCarouselTemplateBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\ImageCarouselColumnTemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
@@ -101,11 +103,11 @@ if (!is_null($events['events']))
 					try{
 						
 					$actions = array (
-					  New \LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder("yes", "ans=y"),
-					  New \LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder("no", "ans=N")
+					  New PostbackTemplateActionBuilder("yes", "ans=y"),
+					  New PostbackTemplateActionBuilder("no", "ans=N")
 					);
-					$button = new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder("confim message", $actions);
-					$outputText = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder("confim message", $button);
+					$button = new ConfirmTemplateBuilder("confim message", $actions);
+					$outputText = new TemplateMessageBuilder("confim message", $button);
 					//$response = $bot->replyMessage($event->getReplyToken(), $outputText);
 						CreatePost(PostText($replyToken,json_encode($outputText)));
 					}
