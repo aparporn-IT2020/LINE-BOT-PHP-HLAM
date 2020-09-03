@@ -57,14 +57,13 @@ function PostVdo ($replyToken,$urlImage,$urlVdo){
 	return $data;
 }
 function PostButtons ($replyToken,$urlImage,$title,$caption){  
+	$actions = [['type' => 'postback','label' => 'Yes','data' => 'action=buy&itemid=123'],
+		    ['type' => 'postback','label' => 'No','data' => 'action=sell&itemid=456']];
+	$template = ['type' => 'buttons','thumbnailImageUrl' => $urlImage,'title' => $title,'text' => $caption,'actions' =>];
+	$messages = ['type' => 'template','altText' => 'This is button message','template' => $template];
 	
-	$actions = [new MessageTemplateActionBuilder('Yes', 'yes'),new MessageTemplateActionBuilder('No', 'no')];
-	$template = new ButtonTemplateBuilder($title,$caption,$urlImage,$actions,'rectangle','cover','#FFFFFF');
-	$messages = new LINEBot\MessageBuilder\TemplateMessageBuilder('This is button message',$template);
-	
-	$data = ['replyToken' => $replyToken,'messages' => [$messages],];
-		
-	return $data;	
+	$data = ['replyToken' => $replyToken,'messages' => [$messages],];									 		
+	return $data;
 }
 function PostConfirm ($replyToken,$caption){  
 	$actions = array (
@@ -100,21 +99,7 @@ if (!is_null($events['events']))
 
 				if ($text =='register')
 				{
-					try{
-						
-					$actions = array (
-					  New PostbackTemplateActionBuilder("yes", "ans=y"),
-					  New PostbackTemplateActionBuilder("no", "ans=N")
-					);
-					$button = new ConfirmTemplateBuilder("confim message", $actions);
-					$outputText = new TemplateMessageBuilder("confim message", $button);
-					//$response = $bot->replyMessage($event->getReplyToken(), $outputText);
-						CreatePost(PostText($replyToken,json_encode($outputText)));
-					}
-					catch (Exception $e)
-					{
-						CreatePost(PostText($replyToken,$e->getMessage()));
-					}
+					CreatePost(PostButtons($replyToken,$ImageLink,'Test','Are you confirm?'));
 				}
 				elseif ($text =='training')
 				{
